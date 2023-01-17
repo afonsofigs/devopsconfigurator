@@ -1,55 +1,45 @@
 <script>
-  import Header from "./Header.svelte";
-  import "./styles.css";
+	import Header from './Header.svelte';
+	import './styles.css';
 </script>
 
-<svelte:head>
-  <meta content="interest-cohort=()" http-equiv="Permissions-Policy">
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-</svelte:head>
-
 <div class="app">
-  <Header />
-
-  <main>
-    <slot />
-  </main>
-
-  <footer></footer>
+	<Header />
+	<main>
+		<slot />
+	</main>
+	<footer />
 </div>
 
 <style>
-    .app {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
 
-    main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        padding: 0.5rem;
-        width: 100%;
-        max-width: 95rem;
-        margin: 0 auto;
-        box-sizing: border-box;
-    }
+	main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 0.5rem;
+		width: 100%;
+		max-width: 95rem;
+		margin: 0 auto;
+		box-sizing: border-box;
+	}
 
-    footer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 12px;
-    }
+	footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 12px;
+	}
 
-    @media (min-width: 480px) {
-        footer {
-            padding: 12px 0;
-        }
-    }
+	@media (min-width: 480px) {
+		footer {
+			padding: 12px 0;
+		}
+	}
 </style>

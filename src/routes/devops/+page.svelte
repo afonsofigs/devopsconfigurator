@@ -45,9 +45,9 @@
   let sideMenuOpen = false; //false
 
   //Fetch json
-  (async () => {
-    const ciColumns = await cisJson["CIs"][0];
-    ciEntries = await cisJson["CIs"].slice(1);
+  (() => {
+    const ciColumns = cisJson["CIs"][0];
+    ciEntries = cisJson["CIs"].slice(1);
     let auxFields = [];
     let auxFieldNames = [];
     let auxAllBrands = [];
@@ -66,6 +66,7 @@
     allFields = auxFields;
     allFieldNames = auxFieldNames;
     allBrands = auxAllBrands;
+    return true;
   })();
 
   function filteredData() {
@@ -278,7 +279,6 @@
 
 <svelte:head>
   <title>DevOps</title>
-  <meta content="DevOps comparator" name="description" />
 </svelte:head>
 
 <div class="d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5">
@@ -323,7 +323,8 @@
 </div>
 
 <Grid
-  className={{ table: 'small' }}
+  autoWidth={true}
+  className={{ table: 'small w-auto' }}
   columns={fieldsSelected.length === 0 ? allFields : filterFields()}
   data={filteredEntries}
   on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)}

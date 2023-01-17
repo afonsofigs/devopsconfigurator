@@ -11,11 +11,10 @@
 </script>
 
 <div class="d-flex flex-row gap-2 mb-0 align-content-center">
-	<Label class="my-auto" for="runnersInput">{label}</Label>
+	<Label class="my-auto">{label}</Label>
 	<Input
 		bind:value
 		class={'p-1 my-auto ' + classNames}
-		id="runnersInput"
 		{max}
 		{min}
 		name={placeholder}

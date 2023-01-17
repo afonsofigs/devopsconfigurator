@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import logo from "$lib/images/NOVA_RGB_DIGITAL_DEPART_HORIZ_POSIT_001.png";
   import github from "$lib/images/github.svg";
+  import { base } from "$app/paths";
 </script>
 
 <header>
@@ -21,14 +22,14 @@
       <path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
     </svg>
     <ul>
-      <li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-        <a href="/">Home</a>
+      <li aria-current={$page.url.pathname === (base+'/') ? 'page' : undefined}>
+        <a href={base+"/"}>Home</a>
       </li>
-      <li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-        <a href="/about">About</a>
+      <li aria-current={$page.url.pathname === (base+'/about') ? 'page' : undefined}>
+        <a href={base+"/about"}>About</a>
       </li>
-      <li aria-current={$page.url.pathname.startsWith('/devops') ? 'page' : undefined}>
-        <a href="/devops">DevOps</a>
+      <li aria-current={$page.url.pathname.startsWith(base+'/devops') ? 'page' : undefined}>
+        <a href={base+"/devops"}>DevOps</a>
       </li>
     </ul>
     <svg aria-hidden="true" viewBox="0 0 2 3">

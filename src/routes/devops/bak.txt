@@ -1,0 +1,30 @@
+<!--  <Input bind:checked={selfHostedChecked} class="my-auto text-nowrap" id="s2" label="Self-hosted" type="switch" />-->
+
+
+<!--
+  <Table dark striped responsive>
+    <thead>
+    <tr>
+      {#each Object.values(Object.fromEntries(Object.entries(cis.displayKeys).filter(([k]) => k !== ""))) as disKey}
+        <th>{disKey}</th>
+      {/each}
+    </tr>
+    </thead>
+    <tbody>
+    {#each cis.entries.filter(k => (!packagedChecked || (packagedChecked && k["Packaged"] === "Yes"))
+    ) as entry}
+      <tr>
+        {#each cis.keys as key}
+          {#if key === "Brand" || key === "Service"}
+            <th>{entry[key]}</th>
+          {:else if (key === "LicenseCost$PerMonth")}
+            <td>{entry[key]} $</td>
+          {:else}
+            <td>{entry[key]}</td>
+          {/if}
+        {/each}
+      </tr>
+    {/each}
+    </tbody>
+  </Table>-->
+<!--{/await}-->

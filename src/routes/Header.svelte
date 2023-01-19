@@ -40,7 +40,7 @@
 	<div class="corner flex flex-grow-1 mt-2">
 		<a
 			class="justify-content-end pe-5"
-			href="https://github.com/afonsofigs"
+			href="https://github.com/afonsofigs/devopsconfigurator"
 			rel="noreferrer"
 			target="_blank"
 		>

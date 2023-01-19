@@ -7,14 +7,14 @@
 	const toggleScrollable = () => (rowModalOpen = !rowModalOpen);
 </script>
 
-<Modal class="" isOpen={rowModalOpen} scrollable size="xl" toggle={toggleScrollable}>
+<Modal class="" isOpen={rowModalOpen} scrollable size="md" toggle={toggleScrollable}>
 	<ModalHeader toggle={toggleScrollable}
 		>{fullRow['Brand'] + ' - ' + fullRow['Service']}</ModalHeader
 	>
-	<ModalBody>
+	<ModalBody class="d-flex flex-column gap-3">
 		{#each allFields.filter((f) => f.id !== 'colID') as field}
 			<p>
-				{field.name +
+				- {field.name +
 					': ' +
 					fullRow[field.id] +
 					(fullRow['desc_' + field.id] !== undefined ? ' - ' + fullRow['desc_' + field.id] : '') +

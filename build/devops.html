@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link href="/devopsconfigurator/favicon.png" rel="icon" />
+		<meta content="width=device-width" name="viewport" />
+		<meta http-equiv="content-security-policy" content="">
+		<link href="/devopsconfigurator/_app/immutable/assets/_layout-bf0ab43b.css" rel="stylesheet">
+		<link href="/devopsconfigurator/_app/immutable/assets/_page-199866e0.css" rel="stylesheet">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/start-ca9960be.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/index-d7be292e.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/singletons-88c45750.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/index-29ebee35.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/components/pages/_layout.svelte-1b5e25a3.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/stores-db5f103c.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/components/pages/devops/_page.svelte-18287024.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/modules/pages/devops/_page.js-94291217.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/_page-90a7f2f4.js"><title>DevOps</title><!-- HEAD_svelte-2aicvh_START --><!-- HEAD_svelte-2aicvh_END -->
+		<meta content="DevOps comparator" name="description" />
+		<meta content="interest-cohort=()" http-equiv="Permissions-Policy" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">
+
+
+<div class="app svelte-styib2"><header class="svelte-1u9z1tp"><div class="corner flex flex-grow-1 mt-2 svelte-1u9z1tp"><a class="justify-content-start ps-5 svelte-1u9z1tp" href="https://www.fct.unl.pt/" rel="noreferrer" target="_blank"><img alt="SST-UNL" class="h-100 w-auto svelte-1u9z1tp" src="/devopsconfigurator/_app/immutable/assets/NOVA_RGB_DIGITAL_DEPART_HORIZ_POSIT_001-07f694f4.png"></a></div>
+
+	<nav class="flex flex-grow-1 svelte-1u9z1tp"><svg aria-hidden="true" viewBox="0 0 2 3" class="svelte-1u9z1tp"><path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" class="svelte-1u9z1tp"></path></svg>
+		<ul class="svelte-1u9z1tp"><li aria-current="false" class="svelte-1u9z1tp"><a href="/devopsconfigurator/" class="svelte-1u9z1tp">Home</a></li>
+			<li aria-current="false" class="svelte-1u9z1tp"><a href="/devopsconfigurator/about" class="svelte-1u9z1tp">About</a></li>
+			<li aria-current="page" class="svelte-1u9z1tp"><a href="/devopsconfigurator/devops" class="svelte-1u9z1tp">DevOps</a></li></ul>
+		<svg aria-hidden="true" viewBox="0 0 2 3" class="svelte-1u9z1tp"><path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" class="svelte-1u9z1tp"></path></svg></nav>
+
+	<div class="corner flex flex-grow-1 mt-2 svelte-1u9z1tp"><a class="justify-content-end pe-5 svelte-1u9z1tp" href="https://github.com/afonsofigs/devopsconfigurator" rel="noreferrer" target="_blank"><img alt="GitHub" src="/devopsconfigurator/_app/immutable/assets/github-1ea8d62e.svg" class="svelte-1u9z1tp"></a></div>
+</header>
+	<main class="svelte-styib2">
+
+<div class="d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5"><div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Users</label>
+	<input max="" min="1" style="font-size: 0.9rem; width: 60px; height: 28px" class="p-1 my-auto bg-light form-control" type="number" name="users" placeholder="users" value="1">
+</div>
+	<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label" for="runnersInput">Self-hosted</label>
+		<div class="btn-group"><button class="btn btn-light btn-sm" value="" style="">No</button><button class="btn btn-light btn-sm active" value="" style="">Both</button><button class="btn btn-light btn-sm" value="" style="">Yes</button></div></div>
+
+	<div class="d-flex flex-row gap-1"><label class="my-auto form-label" for="runnersInput">CD</label>
+		<div class="my-auto form-check form-switch"><input placeholder="" class="form-check-input" id="s2" type="checkbox" name="" value="">
+  </div>
+</div>
+
+	
+
+<div aria-expanded="false" aria-multiselectable="true" class="multiselect bg-light svelte-2agpg7">
+  <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
+  
+    <svg width="15px" style="min-width: 1em; padding: 0 1pt; cursor: pointer;" fill="currentColor" viewBox="0 0 16 16"><path d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"></path></svg>
+  
+  <ul class="selected  svelte-2agpg7">
+    <li style="display: contents;" class="svelte-2agpg7"><input class=" svelte-2agpg7" autocomplete="off"  placeholder="Git Platforms" ondrop="return false" value="">
+      </li></ul>
+  
+  
+
+  
+  <ul class="options  svelte-2agpg7 hidden">
+        
+        <li class="svelte-2agpg7" aria-selected="false"><span class="svelte-gx6k8d" style="gap: 4pt;"><img alt="other" height="20px"  src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg">
+	Other
+</span>
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false"><span class="svelte-gx6k8d" style="gap: 4pt;"><img alt="github" height="20px"  src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg">
+	GitHub
+</span>
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false"><span class="svelte-gx6k8d" style="gap: 4pt;"><img alt="bitbucketpipeline" height="20px"  src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_bitbucketpipeline.svg">
+	Bitbucket
+</span>
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false"><span class="svelte-gx6k8d" style="gap: 4pt;"><img alt="gitlab" height="20px"  src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_gitlab.svg">
+	GitLab
+</span>
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false"><span class="svelte-gx6k8d" style="gap: 4pt;"><img alt="assembla" height="20px"  src="https://seeklogo.com/images/A/assembla-logo-0BE7A98406-seeklogo.com.png">
+	Assembla
+</span>
+        </li></ul>
+</div>
+
+	<button class="btn btn-light" value="" style="">More filters</button></div>
+
+<article></article>
+
+
+<div></div>
+
+
+
+<div><div aria-hidden class="offcanvas offcanvas-end w-25" style="visibility: hidden;" tabindex="-1"><div class="offcanvas-header"><h5 class="offcanvas-title">More filters
+        </h5>
+  
+    <button aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+    <div class="offcanvas-body"><div class="d-flex flex-column justify-content-start gap-4"><div class="form-check form-switch"><input placeholder="" class="form-check-input" id="s1" type="checkbox" name="" value="">
+  <label class="form-check-label" for="s1">Packaged</label></div>
+
+		<div><p class="mb-2">Cloud OSs:</p>
+			<div class="d-flex flex-row justify-content-start gap-2 w-100">
+
+<div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
+  <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
+  
+    <svg width="15px" style="min-width: 1em; padding: 0 1pt; cursor: pointer;" fill="currentColor" viewBox="0 0 16 16"><path d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"></path></svg>
+  
+  <ul class="selected  svelte-2agpg7">
+    <li style="display: contents;" class="svelte-2agpg7"><input class=" svelte-2agpg7" autocomplete="off"  placeholder="Cloud OSs: All" ondrop="return false" value="">
+      </li></ul>
+  
+  
+
+  
+  <ul class="options  svelte-2agpg7 hidden">
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Linux
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Docker
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Windows
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            macOS
+          
+        </li></ul>
+</div>
+				<select id="exampleSelect" style="width: 80px" class="form-select" name="select"><option value="Or">Or</option><option value="And">And</option></select>
+
+  
+</div></div>
+		<div><p class="mb-2">Self-hosted OSs:</p>
+			<div class="d-flex flex-row justify-content-start gap-2">
+
+<div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
+  <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
+  
+    <svg width="15px" style="min-width: 1em; padding: 0 1pt; cursor: pointer;" fill="currentColor" viewBox="0 0 16 16"><path d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"></path></svg>
+  
+  <ul class="selected  svelte-2agpg7">
+    <li style="display: contents;" class="svelte-2agpg7"><input class=" svelte-2agpg7" autocomplete="off"  placeholder="Self-hosted OSs: All" ondrop="return false" value="">
+      </li></ul>
+  
+  
+
+  
+  <ul class="options  svelte-2agpg7 hidden">
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Linux
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Docker
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Windows
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            macOS
+          
+        </li></ul>
+</div>
+				<select id="exampleSelect" style="width: 80px" class="form-select" name="select"><option value="Or">Or</option><option value="And">And</option></select>
+
+  
+</div></div>
+
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Cloud concurrent builds:</label>
+	<input max="1000" min="0" style="font-size: 0.9rem; width: 45px; height: 28px" class="p-1 my-auto  form-control" type="number" name="builds" placeholder="builds" value="0">
+</div>
+
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Self-hosted runners:</label>
+	<input max="1000" min="0" style="font-size: 0.9rem; width: 45px; height: 28px" class="p-1 my-auto  form-control" type="number" name="runners" placeholder="runners" value="0">
+</div>
+
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Linux monthly cloud minutes:</label>
+	<input max="" min="0" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="linuxMinutes" placeholder="linuxMinutes" value="0">
+</div>
+
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Docker monthly cloud minutes:</label>
+	<input max="" min="0" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="dockerMinutes" placeholder="dockerMinutes" value="0">
+</div>
+
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Windows monthly cloud minutes:</label>
+	<input max="" min="0" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="windowsMinutes" placeholder="windowsMinutes" value="0">
+</div>
+
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">macOS monthly cloud minutes:</label>
+	<input max="" min="0" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="macOSMinutes" placeholder="macOSMinutes" value="0">
+</div>
+
+		
+
+<div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
+  <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
+  
+    <svg width="15px" style="min-width: 1em; padding: 0 1pt; cursor: pointer;" fill="currentColor" viewBox="0 0 16 16"><path d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"></path></svg>
+  
+  <ul class="selected  svelte-2agpg7">
+    <li style="display: contents;" class="svelte-2agpg7"><input class=" svelte-2agpg7" autocomplete="off"  placeholder="Brands: All (25)" ondrop="return false" value="">
+      </li></ul>
+  
+  
+
+  
+  <ul class="options  svelte-2agpg7 hidden">
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Jenkins
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Travis CI
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            CircleCI
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Azure Pipelines
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            GitHub Actions
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Gitlab
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Codeship
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            TeamCity
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            AWS Codebuild 
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Harness CI  
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Bitbucket
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Buildkite
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Concourse
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            GoCD
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            AppVeyor
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Buildbot
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Tekton
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            PMEase QuickBuild
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Cirrus CI
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Kraken CI
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Webapp.io
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Hercules CI
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Dagger.io
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            buddy.works
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            SemaphoreCI
+          
+        </li></ul>
+</div>
+
+		
+
+<div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
+  <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
+  
+    <svg width="15px" style="min-width: 1em; padding: 0 1pt; cursor: pointer;" fill="currentColor" viewBox="0 0 16 16"><path d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"></path></svg>
+  
+  <ul class="selected  svelte-2agpg7">
+    <li style="display: contents;" class="svelte-2agpg7"><input class=" svelte-2agpg7" autocomplete="off"  placeholder="Visible fields: All" ondrop="return false" value="">
+      </li></ul>
+  
+  
+
+  
+  <ul class="options  svelte-2agpg7 hidden">
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Brand
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Service
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Base Cost
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Calculated Cost
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Packaged
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Self-hosted
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            CD
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Git Platforms
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Plugins
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Cloud Build OSs
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Self-hosted Build OSs
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            N Cloud Concurrent Builds
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Price Extra Parallel Build
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            N Self-hosted Runners
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Price per extra runner
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Builds per month limit
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Included credits per month
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Credits per Self-hosted build minute
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Credits per Linux cloud build minute
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Credits per Docker cloud build minute
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Credits per Windows cloud build minute
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Credits per macOS build minute
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Price per Extra Credit
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Included Users
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Max Users
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Price per Extra User
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Included Credits Per Extra User
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Caching
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Time Scheduled Pipelines
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Statistics and Metrics
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Commercial Support
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Easy Fill
+          
+        </li></ul>
+</div>
+
+		<div><p class="mb-2">Commercial support:</p>
+			
+
+<div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
+  <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
+  
+    <svg width="15px" style="min-width: 1em; padding: 0 1pt; cursor: pointer;" fill="currentColor" viewBox="0 0 16 16"><path d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"></path></svg>
+  
+  <ul class="selected  svelte-2agpg7">
+    <li style="display: contents;" class="svelte-2agpg7"><input class=" svelte-2agpg7" autocomplete="off"  placeholder="Support: All" ondrop="return false" value="">
+      </li></ul>
+  
+  
+
+  
+  <ul class="options  svelte-2agpg7 hidden">
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            External companies
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            No
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Yes
+          
+        </li>
+        
+        <li class="svelte-2agpg7" aria-selected="false">
+            Yes with SLA
+          
+        </li></ul>
+</div></div>
+
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Results per page:</label>
+	<input max="70" min="1" style="font-size: 0.9rem; width: 45px; height: 28px" class="p-1 my-auto  form-control" type="number" name="pagination" placeholder="pagination" value="10">
+</div></div></div></div>
+  </div></main>
+	<footer class="svelte-styib2"></footer>
+</div>
+
+
+		<script type="module" data-sveltekit-hydrate="1ip0p9x">
+			import { start } from "/devopsconfigurator/_app/immutable/start-ca9960be.js";
+
+			start({
+				env: {},
+				paths: {"base":"/devopsconfigurator","assets":"/devopsconfigurator"},
+				target: document.querySelector('[data-sveltekit-hydrate="1ip0p9x"]').parentNode,
+				version: "1674086739417",
+				hydrate: {
+					node_ids: [0, 4],
+					data: [null,null],
+					form: null
+				}
+			});
+		</script>
+	</div>
+	</body>
+</html>

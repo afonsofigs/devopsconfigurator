@@ -2,11 +2,10 @@
   import { Button, ButtonGroup, Input, Label } from 'sveltestrap';
   import './styles.css';
   import MultiSelect from 'svelte-multiselect';
-  import { boolJoins, gitPlatforms, ignoredFieldsDefault } from './options';
+  import { boolJoins, gitPlatforms, ignoredFieldsDefault, selfHosted } from '$lib/commons/options.js';
   import MultiOptionSlot from './MultiOptionSlot.svelte';
   import NumberInput from './NumberInput.svelte';
   import Grid from 'gridjs-svelte';
-  import { selfHosted } from './options.js';
   import RowModal from './RowModal.svelte';
   import SideMenu from './SideMenu.svelte';
   import cisJson from '$lib/jsons/cisJson.json';
@@ -279,7 +278,7 @@
   resizable={true}
   search={true}
   sort={true}
-  style={{ table: { 'white-space': 'nowrap' }, td: {"min-width":"100px"} }}
+  style={{ table: { 'white-space': 'nowrap' }, td: {'min-width':'100px'} }}
 />
 
 <RowModal {allFields} bind:rowModalOpen fullRow={ciEntries[modalColID]} />

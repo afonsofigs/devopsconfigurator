@@ -1,8 +1,8 @@
 <script>
-	import { Input, Offcanvas } from 'sveltestrap';
-	import NumberInput from './NumberInput.svelte';
-	import MultiSelect from 'svelte-multiselect';
-	import { boolJoins, OSs, supports } from './options.js';
+	import { Input, Offcanvas } from "sveltestrap";
+	import NumberInput from "./NumberInput.svelte";
+	import MultiSelect from "svelte-multiselect";
+	import { boolJoins, OSs, supports } from "./options.js";
 
 	export let sideMenuOpen = false;
 	const toggleEnd = () => (sideMenuOpen = !sideMenuOpen);
@@ -124,11 +124,6 @@
 			placeholder="Brands: All ({allBrands.length})"
 		/>
 
-		<MultiSelect
-			bind:options={allFieldNames}
-			bind:selected={fieldsSelected}
-			placeholder="Visible fields: All"
-		/>
 
 		<div>
 			<p class="mb-2">Commercial support:</p>
@@ -141,6 +136,12 @@
 			max="70"
 			min="1"
 			placeholder="pagination"
+		/>
+
+		<MultiSelect
+			bind:options={allFieldNames}
+			bind:selected={fieldsSelected}
+			placeholder="Visible fields: All"
 		/>
 	</div>
 </Offcanvas>

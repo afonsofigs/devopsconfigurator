@@ -224,22 +224,22 @@
   <title>DevOps</title>
 </svelte:head>
 
-<div class="d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5">
+<div class='d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5'>
   <NumberInput
     bind:value={users}
-    classNames="bg-light"
-    label="Users"
-    min="1"
-    placeholder="users"
-    width="60px"
+    classNames='bg-light'
+    label='Users'
+    min='1'
+    placeholder='users'
+    width='60px'
   />
-  <div class="d-flex flex-row gap-2 mb-0 align-content-center">
-    <Label class="my-auto" for="runnersInput">Self-hosted</Label>
+  <div class='d-flex flex-row gap-2 mb-0 align-content-center'>
+    <Label class='my-auto' for='runnersInput'>Self-hosted</Label>
     <ButtonGroup>
       {#each selfHosted as selfHostedState}
         <Button
-          size="sm"
-          color="light"
+          size='sm'
+          color='light'
           active={selfHostedChecked === selfHostedState}
           on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button
         >
@@ -247,22 +247,22 @@
     </ButtonGroup>
   </div>
 
-  <div class="d-flex flex-row gap-1">
-    <Label class="my-auto" for="runnersInput">CD</Label>
-    <Input bind:checked={cdChecked} class="my-auto" id="s2" type="switch" />
+  <div class='d-flex flex-row gap-1'>
+    <Label class='my-auto' for='runnersInput'>CD</Label>
+    <Input bind:checked={cdChecked} class='my-auto' id='s2' type='switch' />
   </div>
 
   <MultiSelect
     bind:selected={gitPlatformsSelected}
     options={gitPlatforms}
-    outerDivClass="bg-light"
-    placeholder="Git Platforms"
+    outerDivClass='bg-light'
+    placeholder='Git Platforms'
   >
-    <MultiOptionSlot let:option {option} slot="selected" />
-    <MultiOptionSlot let:option {option} slot="option" />
+    <MultiOptionSlot let:option {option} slot='selected' />
+    <MultiOptionSlot let:option {option} slot='option' />
   </MultiSelect>
 
-  <Button color="light" on:click={openSideMenu}>More filters</Button>
+  <Button color='light' on:click={openSideMenu}>More filters</Button>
 </div>
 
 <Grid
@@ -279,7 +279,7 @@
   resizable={true}
   search={true}
   sort={true}
-  style={{ table: { 'white-space': 'nowrap' } }}
+  style={{ table: { 'white-space': 'nowrap' }, td: {"min-width":"100px"} }}
 />
 
 <RowModal {allFields} bind:rowModalOpen fullRow={ciEntries[modalColID]} />

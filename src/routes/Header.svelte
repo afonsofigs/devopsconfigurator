@@ -34,6 +34,9 @@
       <li aria-current={$page.url.pathname === base + '/devops' ? 'page' : 'false'}>
         <a href={base + '/devops'}>CI/CD</a>
       </li>
+      <li aria-current={$page.url.pathname === base + '/chats' ? 'page' : 'false'}>
+        <a href={base + '/chats'}>Chats</a>
+      </li>
     </ul>
     <svg aria-hidden='true' viewBox='0 0 2 3'>
       <path d='M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z' />

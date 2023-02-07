@@ -34,6 +34,7 @@
     "gh-pages": "^4.0.0",
     "gridjs": "^5.1.0",
     "gridjs-svelte": "^2.1.1",
+    "mathjs": "^11.5.1",
     "svelte-multiselect": "^8.2.4",
     "sveltestrap": "^5.10.0"
   }

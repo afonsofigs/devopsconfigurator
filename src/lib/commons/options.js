@@ -19,3 +19,6 @@ export const ignoredFieldsDefault = ['colID', 'LicenseCost$PerMonth', 'NCloudCon
 export const ignoredVCFieldsDefault = ['colID', 'LicenseCost$PerMonth', 'ExtrasIncluded', 'IncludedUsers', 'MaxUsers',
                                        'PriceExtraUser$', 'DiskSpaceExtraUserGB', 'NPrivateReposPerExtraUser',
                                        'PriceExtraGBDiskSpace', 'DiskSpaceGB', 'NPrivateReposIncluded'];
+export const ignoredChatFieldsDefault = ['colID', 'LicenseCost$PerMonth', 'ExtrasIncluded', 'IncludedUsers', 'MaxUsers',
+                                       'PriceExtraUser$','FreeTemporaryGuestsFormula', 'ChatFilesFormulaGB', ];
+                        

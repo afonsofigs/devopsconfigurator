@@ -1,12 +1,12 @@
 <script>
   import { Button, ButtonGroup, Input, Label } from 'sveltestrap';
-  import './styles.css';
+  import '$lib/commons/styles.css';
   import MultiSelect from 'svelte-multiselect';
   import { boolJoins, gitPlatforms, ignoredFieldsDefault, selfHosted } from '$lib/commons/options.js';
-  import MultiOptionSlot from './MultiOptionSlot.svelte';
-  import NumberInput from './NumberInput.svelte';
+  import MultiOptionSlot from '$lib/commons/MultiOptionSlot.svelte';
+  import NumberInput from '$lib/commons/NumberInput.svelte';
   import Grid from 'gridjs-svelte';
-  import RowModal from './RowModal.svelte';
+  import RowModal from '$lib/commons/RowModal.svelte';
   import SideMenu from './SideMenu.svelte';
   import cisJson from '$lib/jsons/cisJson.json';
 
@@ -169,7 +169,7 @@
         if (parsedCreditsPMin === 0) return 0; //if it is free
         if (arr['IncludedCreditsPerMonth'] === '∞') return 0; // if included credits are infinity
         const parsedIncludedCredits = parseFloat(arr['IncludedCreditsPerMonth']);
-        if (arr['PricePerExtraCredit'] === 'N/A' && parsedIncludedCredits >= monthlyCloudMins) return 0; //If "priceperextracredit" == "N/A" then check if included credits are enough
+        if (arr['PricePerExtraCredit'] === 'N/A' && parsedIncludedCredits >= monthlyCloudMins) return 0; //If "PricePerExtraCredit" == "N/A" then check if included credits are enough
         const parsedPricePerExtraCredit = parseFloat(arr['PricePerExtraCredit']);
         const minToCredits = monthlyCloudMins * parsedCreditsPMin;
         const minusIncludedCredits = minToCredits - parsedIncludedCredits;
@@ -220,7 +220,7 @@
 </script>
 
 <svelte:head>
-  <title>DevOps</title>
+  <title>CI/CD Comparison</title>
 </svelte:head>
 
 <div class='d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5'>

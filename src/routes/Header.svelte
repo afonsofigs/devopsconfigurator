@@ -29,13 +29,16 @@
         <a href={base + '/about'}>About</a>
       </li>
       <li aria-current={$page.url.pathname === base + '/vcs' ? 'page' : 'false'}>
-        <a href={base + '/vcs'}>Version Control</a>
+        <a href={base + '/vcs'}>VC</a>
       </li>
       <li aria-current={$page.url.pathname === base + '/devops' ? 'page' : 'false'}>
         <a href={base + '/devops'}>CI/CD</a>
       </li>
       <li aria-current={$page.url.pathname === base + '/chats' ? 'page' : 'false'}>
         <a href={base + '/chats'}>Chats</a>
+      </li>
+      <li aria-current={$page.url.pathname === base + '/stats' ? 'page' : 'false'}>
+        <a href={base + '/stats'}>Stats</a>
       </li>
     </ul>
     <svg aria-hidden='true' viewBox='0 0 2 3'>

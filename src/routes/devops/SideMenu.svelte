@@ -1,6 +1,6 @@
 <script>
   import { Input, Offcanvas } from 'sveltestrap';
-  import NumberInput from './NumberInput.svelte';
+  import NumberInput from '$lib/commons/NumberInput.svelte';
   import MultiSelect from 'svelte-multiselect';
   import { boolJoins, OSs, supports } from '$lib/commons/options.js';
 

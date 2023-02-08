@@ -1,10 +1,10 @@
 <script>
   import { Button, ButtonGroup, Label } from 'sveltestrap';
-  import './styles.css';
+  import '$lib/commons/styles.css';
   import { ignoredVCFieldsDefault, selfHosted } from '$lib/commons/options.js';
   import NumberInput from '$lib/commons/NumberInput.svelte';
   import Grid from 'gridjs-svelte';
-  import RowModal from './RowModal.svelte';
+  import RowModal from '$lib/commons/RowModal.svelte';
   import vcsJson from '$lib/jsons/vcsJson.json';
   import GreenSwitch from '$lib/commons/GreenSwitch.svelte';
   import SideMenu from './SideMenu.svelte';

@@ -211,6 +211,7 @@
 	<title>Chats Comparison</title>
 </svelte:head>
 
+<div class="mt-4" />
 <div class="d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5">
 	<NumberInput
 		bind:value={users}

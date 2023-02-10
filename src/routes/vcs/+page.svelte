@@ -5,7 +5,7 @@
 	import NumberInput from '$lib/commons/NumberInput.svelte';
 	import Grid from 'gridjs-svelte';
 	import RowModal from '$lib/commons/RowModal.svelte';
-	import vcsJson from '$lib/jsons/vcsJson.json';
+	import vcsJson from '$lib/jsons/VCs.json';
 	import GreenSwitch from '$lib/commons/GreenSwitch.svelte';
 	import SideMenu from './SideMenu.svelte';
 
@@ -48,26 +48,21 @@
 			if (key === 'colID') {
 				colIDIdx = index;
 				auxFields[index] = { id: key, name: vcsColumns[key], hidden: true };
-			} else {
+			}
+			else {
 				auxFields[index] = { id: key, name: vcsColumns[key] };
 				auxFieldNames[index] = vcsColumns[key];
 			}
 		});
 
-		vcsEntries.forEach((vcsArr) =>
-			auxAllBrands.includes(vcsArr['Brand'])
-				? ''
-				: (auxAllBrands = [...auxAllBrands, vcsArr['Brand']])
-		);
+		vcsEntries.forEach(
+			(vcsArr) => auxAllBrands.includes(vcsArr['Brand']) ? '' : (auxAllBrands = [...auxAllBrands, vcsArr['Brand']]));
 
 		allFields = auxFields;
 
 		//Exclude fields ignored by default from the selected
-		auxFields.forEach((field) =>
-			ignoredVCFieldsDefault.includes(field.id)
-				? null
-				: (fieldsSelected = [...fieldsSelected, field.name])
-		);
+		auxFields.forEach(
+			(field) => ignoredVCFieldsDefault.includes(field.id) ? null : (fieldsSelected = [...fieldsSelected, field.name]));
 
 		allFieldNames = auxFieldNames;
 		allBrands = auxAllBrands;
@@ -90,17 +85,15 @@
 		function checkDiskGB(arr) {
 			if (arr['DiskSpaceGB'] === '∞' || diskSpace <= parseFloat(arr['FinalDiskSpace'])) {
 				return true;
-			} else {
+			}
+			else {
 				return arr['PriceExtraGBDiskSpace'] !== 'N/A';
 			}
 		}
 
 		function checkSelfHosted(arr) {
-			return (
-				selfHostedChecked === 'Both' ||
-				arr['Self-hosted'] === 'Both' ||
-				arr['Self-hosted'] === selfHostedChecked
-			);
+			return (selfHostedChecked === 'Both' || arr['Self-hosted'] === 'Both' || arr['Self-hosted'] ===
+				selfHostedChecked);
 		}
 
 		function checkIssues(arr) {
@@ -116,16 +109,11 @@
 		}
 
 		function checkPackageReg(arr) {
-			return (
-				!packageRegistryChecked || (packageRegistryChecked && arr['PackageRegistry'] === 'Yes')
-			);
+			return (!packageRegistryChecked || (packageRegistryChecked && arr['PackageRegistry'] === 'Yes'));
 		}
 
 		function checkSupport(arr) {
-			return (
-				supportSelected.length === 0 ||
-				supportSelected.some((git) => arr['CommercialSupport'].includes(git))
-			);
+			return (supportSelected.length === 0 || supportSelected.some((git) => arr['CommercialSupport'].includes(git)));
 		}
 
 		function extraUsers(arr) {
@@ -179,27 +167,14 @@
 
 			//Cell value changes
 			arr['CalculatedCost'] =
-				Math.round(
-					(parseFloat(arr['LicenseCost$PerMonth']) +
-						priceUsers() +
-						priceDiskGB() +
-						Number.EPSILON) *
-						100
-				) / 100;
+				Math.round((parseFloat(arr['LicenseCost$PerMonth']) + priceUsers() + priceDiskGB() + Number.EPSILON) * 100) /
+				100;
 		}
 
 		filteredEntries = vcsEntries
 			.filter(
-				(arr) =>
-					checkBrand(arr) &&
-					checkUsers(arr) &&
-					checkSelfHosted(arr) &&
-					checkIssues(arr) &&
-					checkKanban(arr) &&
-					checkWiki(arr) &&
-					checkPackageReg(arr) &&
-					checkSupport(arr)
-			)
+				(arr) => checkBrand(arr) && checkUsers(arr) && checkSelfHosted(arr) && checkIssues(arr) && checkKanban(arr) &&
+					checkWiki(arr) && checkPackageReg(arr) && checkSupport(arr))
 			.map((arr) => {
 				calcUsersBasedValues(arr);
 				return arr;
@@ -214,18 +189,7 @@
 	}
 
 	//Source or filters changed, run filtering
-	$: (vcsEntries,
-	selfHostedChecked,
-	users,
-	privateRepos,
-	diskSpace,
-	brandsSelected,
-	supportSelected,
-	issuesChecked,
-	kanbanChecked,
-	wikiChecked,
-	packageRegistryChecked),
-		filteredData();
+	$: (vcsEntries, selfHostedChecked, users, privateRepos, diskSpace, brandsSelected, supportSelected, issuesChecked, kanbanChecked, wikiChecked, packageRegistryChecked), filteredData();
 
 	function filterFields() {
 		return allFields.filter((arr) => {
@@ -247,82 +211,41 @@
 	<title>VCs Comparison</title>
 </svelte:head>
 
-<div class="mt-4" />
-<div class="d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5">
-	<NumberInput
-		bind:value={users}
-		classNames="bg-light"
-		label="Users"
-		min="1"
-		placeholder="users"
-		width="60px"
-	/>
-	<div class="d-flex flex-row gap-2 mb-0 align-content-center">
-		<Label class="my-auto" for="runnersInput">Self-hosted</Label>
+<div class='mt-4' />
+<div class='d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5'>
+	<NumberInput bind:value={users} classNames='bg-light' label='Users' min='1' placeholder='users' width='60px' />
+	<div class='d-flex flex-row gap-2 mb-0 align-content-center'>
+		<Label class='my-auto' for='runnersInput'>Self-hosted</Label>
 		<ButtonGroup>
 			{#each selfHosted as selfHostedState}
-				<Button
-					size="sm"
-					color="light"
-					active={selfHostedChecked === selfHostedState}
-					on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button
-				>
+				<Button size='sm' color='light' active={selfHostedChecked === selfHostedState}
+								on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button>
 			{/each}
 		</ButtonGroup>
 	</div>
 
-	<GreenSwitch bind:checkVar={issuesChecked} label="Issues" />
-	<GreenSwitch bind:checkVar={wikiChecked} label="Wiki" />
+	<GreenSwitch bind:checkVar={issuesChecked} label='Issues' />
+	<GreenSwitch bind:checkVar={wikiChecked} label='Wiki' />
 
-	<NumberInput
-		bind:value={privateRepos}
-		classNames="bg-light"
-		label="Private Repositories"
-		min="1"
-		placeholder="repos"
-		width="60px"
-	/>
+	<NumberInput bind:value={privateRepos} classNames='bg-light' label='Private Repositories' min='1' placeholder='repos'
+							 width='60px' />
 
-	<NumberInput
-		bind:value={diskSpace}
-		classNames="bg-light"
-		label="Storage GB"
-		min="0"
-		placeholder="repos"
-		step="0.1"
-		width="60px"
-	/>
+	<NumberInput bind:value={diskSpace} classNames='bg-light' label='Storage GB' min='0' placeholder='repos' step='0.1'
+							 width='60px' />
 
-	<Button color="light" on:click={openSideMenu}>More filters</Button>
+	<Button color='light' on:click={openSideMenu}>More filters</Button>
 </div>
 
-<Grid
-	autoWidth={true}
-	className={{ table: 'small w-auto' }}
-	columns={fieldsSelected.length === 0 ? allFields : filterFields()}
-	data={filteredEntries}
-	on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)}
-	pagination={{
+<Grid autoWidth={true} className={{ table: 'small w-auto' }}
+			columns={fieldsSelected.length === 0 ? allFields : filterFields()} data={filteredEntries}
+			on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)} pagination={{
 		enabled: true,
 		limit: currentPagination == null ? basePagination : currentPagination,
 		summary: true
-	}}
-	resizable={true}
-	search={true}
-	sort={true}
-	style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '100px' } }}
-/>
+	}} resizable={true} search={true} sort={true}
+			style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '100px' } }} />
 
 <RowModal {allFields} bind:rowModalOpen fullRow={vcsEntries[modalColID]} />
 
-<SideMenu
-	bind:allBrands
-	bind:allFieldNames
-	bind:brandsSelected
-	bind:currentPagination
-	bind:fieldsSelected
-	bind:kanbanChecked
-	bind:packageRegistryChecked
-	bind:sideMenuOpen
-	bind:supportSelected
-/>
+<SideMenu bind:allBrands bind:allFieldNames bind:brandsSelected bind:currentPagination bind:fieldsSelected
+					bind:kanbanChecked bind:packageRegistryChecked bind:sideMenuOpen bind:supportSelected />

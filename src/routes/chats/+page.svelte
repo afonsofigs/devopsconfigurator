@@ -5,7 +5,7 @@
 	import NumberInput from '$lib/commons/NumberInput.svelte';
 	import Grid from 'gridjs-svelte';
 	import RowModal from '$lib/commons/RowModal.svelte';
-	import chatsJson from '$lib/jsons/chatsJson.json';
+	import chatsJson from '$lib/jsons/Chats.json';
 	import GreenSwitch from '$lib/commons/GreenSwitch.svelte';
 	import SideMenu from './SideMenu.svelte';
 	import { evaluate } from 'mathjs';
@@ -49,26 +49,21 @@
 			if (key === 'colID') {
 				colIDIdx = index;
 				auxFields[index] = { id: key, name: chatsColumns[key], hidden: true };
-			} else {
+			}
+			else {
 				auxFields[index] = { id: key, name: chatsColumns[key] };
 				auxFieldNames[index] = chatsColumns[key];
 			}
 		});
 
-		chatsEntries.forEach((chatsArr) =>
-			auxAllBrands.includes(chatsArr['Brand'])
-				? ''
-				: (auxAllBrands = [...auxAllBrands, chatsArr['Brand']])
-		);
+		chatsEntries.forEach((chatsArr) => auxAllBrands.includes(chatsArr['Brand']) ? '' : (auxAllBrands =
+			[...auxAllBrands, chatsArr['Brand']]));
 
 		allFields = auxFields;
 
 		//Exclude fields ignored by default from the selected
-		auxFields.forEach((field) =>
-			ignoredChatFieldsDefault.includes(field.id)
-				? null
-				: (fieldsSelected = [...fieldsSelected, field.name])
-		);
+		auxFields.forEach((field) => ignoredChatFieldsDefault.includes(field.id) ? null : (fieldsSelected =
+			[...fieldsSelected, field.name]));
 
 		allFieldNames = auxFieldNames;
 		allBrands = auxAllBrands;
@@ -89,11 +84,8 @@
 		}
 
 		function checkSelfHosted(arr) {
-			return (
-				selfHostedChecked === 'Both' ||
-				arr['Self-hosted'] === 'Both' ||
-				arr['Self-hosted'] === selfHostedChecked
-			);
+			return (selfHostedChecked === 'Both' || arr['Self-hosted'] === 'Both' || arr['Self-hosted'] ===
+				selfHostedChecked);
 		}
 
 		function checkPeoplePerCall(arr) {
@@ -105,21 +97,23 @@
 		}
 
 		function checkSupport(arr) {
-			return (
-				supportSelected.length === 0 ||
-				supportSelected.some((git) => arr['CommercialSupport'].includes(git))
-			);
+			return (supportSelected.length === 0 || supportSelected.some((git) => arr['CommercialSupport'].includes(git)));
 		}
 
 		function calcUsersBasedValues(arr) {
-			arr['ChatFilesGBFinal'] =
-				arr['ChatFilesFormulaGB'] !== '∞'
-					? evaluate(arr['ChatFilesFormulaGB'].replace('users', users))
-					: '∞';
-			arr['FreeTemporaryGuestsFinal'] =
-				arr['FreeTemporaryGuestsFormula'] !== '∞'
-					? evaluate(arr['FreeTemporaryGuestsFormula'].replace('users', users))
-					: '∞';
+			if (arr['ChatFilesFormulaGB'] === '∞' || !isNaN(arr['ChatFilesFormulaGB'])) {
+				arr['ChatFilesGBFinal'] = arr['ChatFilesFormulaGB'];
+			}
+			else {
+				arr['ChatFilesGBFinal'] = evaluate(arr['ChatFilesFormulaGB'].replace('users', users));
+			}
+
+			if (arr['FreeTemporaryGuestsFormula'] === '∞' || !isNaN(arr['FreeTemporaryGuestsFormula'])) {
+				arr['FreeTemporaryGuestsFinal'] = arr['FreeTemporaryGuestsFormula'];
+			}
+			else {
+				arr['FreeTemporaryGuestsFinal'] = evaluate(arr['FreeTemporaryGuestsFormula'].replace('users', users));
+			}
 		}
 
 		function extraUsers(arr) {
@@ -134,10 +128,7 @@
 		}
 
 		function checkFreeGuests(arr) {
-			return (
-				arr['FreeTemporaryGuestsFormula'] === '∞' ||
-				freeGuests <= parseInt(arr['FreeTemporaryGuestsFinal'])
-			);
+			return (arr['FreeTemporaryGuestsFormula'] === '∞' || freeGuests <= parseInt(arr['FreeTemporaryGuestsFinal']));
 		}
 
 		function calcCustomPrice(arr) {
@@ -147,22 +138,12 @@
 
 			//Cell value changes
 			arr['CalculatedCost'] =
-				Math.round(
-					(parseFloat(arr['LicenseCost$PerMonth']) + priceUsers() + Number.EPSILON) * 100
-				) / 100;
+				Math.round((parseFloat(arr['LicenseCost$PerMonth']) + priceUsers() + Number.EPSILON) * 100) / 100;
 		}
 
 		filteredEntries = chatsEntries
-			.filter(
-				(arr) =>
-					checkBrand(arr) &&
-					checkUsers(arr) &&
-					checkUnlimitedHistory(arr) &&
-					checkSelfHosted(arr) &&
-					checkPeoplePerCall(arr) &&
-					checkCallDuration(arr) &&
-					checkSupport(arr)
-			)
+			.filter((arr) => checkBrand(arr) && checkUsers(arr) && checkUnlimitedHistory(arr) && checkSelfHosted(arr) &&
+				checkPeoplePerCall(arr) && checkCallDuration(arr) && checkSupport(arr))
 			.map((arr) => {
 				calcUsersBasedValues(arr);
 				return arr;
@@ -177,17 +158,7 @@
 	}
 
 	//Source or filters changed, run filtering
-	$: (chatsEntries,
-	selfHostedChecked,
-	users,
-	brandsSelected,
-	supportSelected,
-	msgHistoryUnlimitedChecked,
-	chatFiles,
-	peoplePerCall,
-	callDuration,
-	freeGuests),
-		filteredData();
+	$: (chatsEntries, selfHostedChecked, users, brandsSelected, supportSelected, msgHistoryUnlimitedChecked, chatFiles, peoplePerCall, callDuration, freeGuests), filteredData();
 
 	function filterFields() {
 		return allFields.filter((arr) => {
@@ -211,77 +182,39 @@
 	<title>Chats Comparison</title>
 </svelte:head>
 
-<div class="mt-4" />
-<div class="d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5">
-	<NumberInput
-		bind:value={users}
-		classNames="bg-light"
-		label="Users"
-		min="1"
-		placeholder="users"
-		width="60px"
-	/>
-	<div class="d-flex flex-row gap-2 mb-0 align-content-center">
-		<Label class="my-auto" for="runnersInput">Self-hosted</Label>
+<div class='mt-4' />
+<div class='d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5'>
+	<NumberInput bind:value={users} classNames='bg-light' label='Users' min='1' placeholder='users' width='60px' />
+	<div class='d-flex flex-row gap-2 mb-0 align-content-center'>
+		<Label class='my-auto' for='runnersInput'>Self-hosted</Label>
 		<ButtonGroup>
 			{#each selfHosted as selfHostedState}
-				<Button
-					size="sm"
-					color="light"
-					active={selfHostedChecked === selfHostedState}
-					on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button
-				>
+				<Button size='sm' color='light' active={selfHostedChecked === selfHostedState}
+								on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button>
 			{/each}
 		</ButtonGroup>
 	</div>
 
-	<GreenSwitch bind:checkVar={msgHistoryUnlimitedChecked} label="Unlimited history" />
+	<GreenSwitch bind:checkVar={msgHistoryUnlimitedChecked} label='Unlimited history' />
 
-	<NumberInput
-		bind:value={peoplePerCall}
-		classNames="bg-light"
-		label="Max users per call"
-		placeholder="users"
-		width="60px"
-	/>
-	<NumberInput
-		bind:value={callDuration}
-		classNames="bg-light"
-		label="Max call duration"
-		placeholder="minutes"
-		width="60px"
-	/>
+	<NumberInput bind:value={peoplePerCall} classNames='bg-light' label='Max users per call' placeholder='users'
+							 width='60px' />
+	<NumberInput bind:value={callDuration} classNames='bg-light' label='Max call duration' placeholder='minutes'
+							 width='60px' />
 
-	<Button color="light" on:click={openSideMenu}>More filters</Button>
+	<Button color='light' on:click={openSideMenu}>More filters</Button>
 </div>
 
-<Grid
-	autoWidth={true}
-	className={{ table: 'small w-auto' }}
-	columns={fieldsSelected.length === 0 ? allFields : filterFields()}
-	data={filteredEntries}
-	on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)}
-	pagination={{
+<Grid autoWidth={true} className={{ table: 'small w-auto' }}
+			columns={fieldsSelected.length === 0 ? allFields : filterFields()} data={filteredEntries}
+			on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)} pagination={{
 		enabled: true,
 		limit: currentPagination == null ? basePagination : currentPagination,
 		summary: true
-	}}
-	resizable={true}
-	search={true}
-	sort={true}
-	style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '100px' } }}
-/>
+	}} resizable={true} search={true} sort={true}
+			style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '100px' } }} />
 
 <RowModal {allFields} bind:rowModalOpen fullRow={chatsEntries[modalColID]} />
 
-<SideMenu
-	bind:allBrands
-	bind:allFieldNames
-	bind:brandsSelected
-	bind:chatFiles
-	bind:currentPagination
-	bind:fieldsSelected
-	bind:freeGuests
-	bind:sideMenuOpen
-	bind:supportSelected
-/>
+<SideMenu bind:allBrands bind:allFieldNames bind:brandsSelected bind:chatFiles bind:currentPagination
+					bind:fieldsSelected bind:freeGuests bind:sideMenuOpen bind:supportSelected />

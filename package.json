@@ -5,13 +5,17 @@
     "dev": "vite dev",
     "build": "vite build && touch build/.nojekyll",
     "deploy": "npx gh-pages -d build -t true",
-    "fullDeploy": "npm run build && npm run deploy",
+    "fullDeploy": "npm run convertAllExcels && npm run build && npm run deploy",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
-    "amend": "git add . && git commit --amend --no-edit && git push --force"
+    "amend": "git add . && git commit --amend --no-edit && git push --force",
+    "convertAllExcels": "npm run convertChats && npm run convertCIs && npm run convertVCs",
+    "convertChats": "convert-excel-to-json --sourceFile=./src/lib/excels/Chat_Comps.xlsx --config='{\"header\":{\"rows\":1}, \"columnToKey\":{\"*\": \"{{columnHeader}}\"} }' > ./src/lib/jsons/Chats.json",
+    "convertCIs": "convert-excel-to-json --sourceFile=./src/lib/excels/CI_Comps.xlsx --config='{\"header\":{\"rows\":1}, \"columnToKey\":{\"*\": \"{{columnHeader}}\"} }' > ./src/lib/jsons/CIs.json",
+    "convertVCs": "convert-excel-to-json --sourceFile=./src/lib/excels/VC_Comps.xlsx --config='{\"header\":{\"rows\":1}, \"columnToKey\":{\"*\": \"{{columnHeader}}\"} }' > ./src/lib/jsons/VCs.json"
   },
   "devDependencies": {
     "@fontsource/fira-mono": "^4.5.10",
@@ -20,6 +24,7 @@
     "@sveltejs/adapter-static": "^1.0.4",
     "@sveltejs/kit": "^1.0.0",
     "@types/cookie": "^0.5.1",
+    "convert-excel-to-json": "^1.7.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",

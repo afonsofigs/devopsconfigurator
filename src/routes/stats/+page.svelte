@@ -1,8 +1,8 @@
 <script>
 	import '$lib/commons/styles.css';
-	import vcsJson from '$lib/jsons/vcsJson.json';
-	import cisJson from '$lib/jsons/cisJson.json';
-	import chatsJson from '$lib/jsons/chatsJson.json';
+	import vcsJson from '$lib/jsons/VCs.json';
+	import cisJson from '$lib/jsons/CIs.json';
+	import chatsJson from '$lib/jsons/Chats.json';
 	import Donut from './Donut.svelte';
 	import Bars from './Bars.svelte';
 	import { evaluate } from 'mathjs';

@@ -23,6 +23,7 @@
 	const cisBrands = getNBrands(cisEntries);
 	const chatsBrands = getNBrands(chatsEntries);
 
+
 	function allHighValuesPercentage(field, entries, totalBrands) {
 		let auxAllBrands = [];
 		//Current Hierarchy: ∞ -> Yes with SLA -> !"Yes with SLA"&&Yes -> Both -> !"∞"&&newNº>oldNº -> *users -> -users
@@ -67,13 +68,47 @@
 		});
 	}
 
+	function splitArrayPercentages(field, entries, totalBrands) {
+		let auxAllBrands = [];
+		let possibleValues = [];
+		entries.forEach((entryArr) => {
+			const newVal = entryArr[field];
+			const currBrand = entryArr['Brand'];
+			//Only eval the first per brand that is not N/A
+			if (!auxAllBrands.includes(currBrand) && newVal !== 'N/A') {
+				auxAllBrands = [...auxAllBrands, currBrand];
+				const splitArr = newVal.split(',').map((item) => item.trim());
+				for (const option of splitArr) {
+					if (!possibleValues.some(e => e.name === option)) {
+						possibleValues = [...possibleValues, { name: option, hits: 1 }];
+					}
+					else {
+						possibleValues[possibleValues.findIndex(e => e.name === option)].hits += 1;
+					}
+				}
+			}
+		});
+		console.log(possibleValues);
+		const preppedData = possibleValues.map(e => {
+			const percentage = Math.round((e.hits / totalBrands) * 100);
+			return { id: `${e.name}, ${percentage}%`, nested: { value: e.hits } };
+		});
+		return preppedData.sort((a, b) => {
+			return b.nested.value - a.nested.value;
+		});
+	}
+
 	function pricePerUser(maxUsers, entries, step = 1) {
 		let averages = [];
 		for (let currUser = 1; currUser <= maxUsers; currUser += step) {
+			let nonSelfHostedEntries = 0;
 			averages = [...averages, {
 				id: currUser, nested: {
-					value: ((entries.reduce((acc, arr) => {
-						if (arr['MaxUsers'] !== '∞' && arr['MaxUsers'] < currUser) return acc;
+					value: Math.round((entries.reduce((acc, arr) => {
+						if (arr['Self-hosted'] === 'Yes') return acc;
+
+						nonSelfHostedEntries += 1;
+						if ((arr['MaxUsers'] !== '∞' && arr['MaxUsers'] < currUser)) return acc;
 
 						function extraUsers() {
 							if (arr['IncludedUsers'] === '∞') return 0;
@@ -91,12 +126,13 @@
 						}
 
 						return acc + finalPrice();
-					}, 0) / entries.length))
+					}, 0) / nonSelfHostedEntries))
 				}
 			}];
 		}
 		return averages;
 	}
+
 </script>
 
 <svelte:head>
@@ -107,8 +143,8 @@
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>Version Control Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{vcsBrands} Brands, {vcsEntries.length} Tiers</p>
-	<div class='mt-4 d-flex flex-row gap-5 flex-wrap justify-content-evenly'>
-		<Lines data={pricePerUser(100, vcsEntries,2)} offsetBy='1' title='Average tier total price per nº of users'
+	<div class='mt-4 d-flex flex-row gap-4 flex-wrap justify-content-evenly'>
+		<Lines data={pricePerUser(100, vcsEntries,2)} offsetBy='1' title='Average cloud-based monthly price per nº of users'
 					 xLegend='Nº Users' />
 		<Donut data={allHighValuesPercentage('Self-hosted', vcsEntries, vcsBrands)} offsetBy='1'
 					 title='Brands that offer Self-hosted solutions' />
@@ -130,19 +166,19 @@
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>CI/CD Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{cisBrands} Brands, {cisEntries.length} Tiers</p>
-	<div class='mt-4 d-flex flex-row flex-wrap gap-5 justify-content-evenly'>
-		<Lines data={pricePerUser(100, cisEntries,2)} offsetBy='0' title='Average tier total price per nº of users'
+	<div class='mt-4 d-flex flex-row flex-wrap gap-4 justify-content-evenly'>
+		<Lines data={pricePerUser(100, cisEntries,2)} offsetBy='0' title='Average cloud-based monthly price per nº of users'
 					 xLegend='Nº Users' />
 		<Donut data={allHighValuesPercentage('Self-hosted', cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer Self-hosted solutions' />
 		<Donut data={allHighValuesPercentage('CD', cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer CD solutions' />
-		<Bars data={allHighValuesPercentage('GitPlatformsCompatible', cisEntries, cisBrands)} offsetBy='0'
-					title='Git platforms combinations by Brands' xLegend='Git platforms combinations' />
-		<Bars data={allHighValuesPercentage('CloudBuildOSs', cisEntries, cisBrands)} offsetBy='0'
-					title='Cloud Build OSs combinations by Brands' xLegend='Cloud Build OSs combinations' />
-		<Bars data={allHighValuesPercentage('Self-hostedRunnersBuildOSs', cisEntries, cisBrands)} offsetBy='0' step='1'
-					title='Self-hosted Build OSs combinations by Brands' xLegend='Self-hosted OSs combinations' />
+		<Bars data={splitArrayPercentages('GitPlatformsCompatible', cisEntries, cisBrands)} offsetBy='0'
+					title='Git platforms by Brands' xLegend='Git platforms' />
+		<Bars data={splitArrayPercentages('CloudBuildOSs', cisEntries, cisBrands)} offsetBy='0'
+					title='Cloud Build OSs by Brands' xLegend='Cloud Build OSs' />
+		<Bars data={splitArrayPercentages('Self-hostedRunnersBuildOSs', cisEntries, cisBrands)} offsetBy='0' step='1'
+					title='Self-hosted Build OSs by Brands' xLegend='Self-hosted OSs' />
 		<Donut data={allHighValuesPercentage('CachingPipelineAndDependencies',  cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer Caching in the pipeline' />
 		<Donut data={allHighValuesPercentage('ScheduledPipelines', cisEntries, cisBrands)} offsetBy='0'
@@ -157,9 +193,9 @@
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>Chats Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{chatsBrands} Brands, {chatsEntries.length} Tiers</p>
-	<div class='mt-4 d-flex flex-row flex-wrap gap-5 justify-content-evenly'>
-		<Lines data={pricePerUser(100, chatsEntries, 2)} offsetBy='2' title='Average tier total price per nº of users'
-					 xLegend='Nº Users' />
+	<div class='mt-4 d-flex flex-row flex-wrap gap-4 justify-content-evenly'>
+		<Lines data={pricePerUser(100, chatsEntries, 2)} offsetBy='2'
+					 title='Average cloud-based monthly price per nº of users' xLegend='Nº Users' />
 		<Bars data={allHighValuesPercentage('PeoplePerCall', chatsEntries, chatsBrands)} offsetBy='2'
 					title="Brand's maximum users per call" xLegend='Users' />
 		<Donut data={allHighValuesPercentage('MsgHistory', chatsEntries, chatsBrands)} offsetBy='2'

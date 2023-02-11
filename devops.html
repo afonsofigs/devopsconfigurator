@@ -7,19 +7,19 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/devopsconfigurator/_app/immutable/assets/_layout-f157237a.css" rel="stylesheet">
 		<link href="/devopsconfigurator/_app/immutable/assets/_page-2277766e.css" rel="stylesheet">
-		<link href="/devopsconfigurator/_app/immutable/assets/styles-efc17b46.css" rel="stylesheet">
+		<link href="/devopsconfigurator/_app/immutable/assets/styles-658fe852.css" rel="stylesheet">
 		<link href="/devopsconfigurator/_app/immutable/assets/HelpModal-a31cd5eb.css" rel="stylesheet">
-		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/start-90e7276d.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/start-b2e5093a.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/index-e15c9d95.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/singletons-429eb3a1.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/index-f7d3f928.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/components/pages/_layout.svelte-7106c566.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/stores-a8242a5c.js">
-		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/components/pages/devops/_page.svelte-786f2cc0.js">
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/components/pages/devops/_page.svelte-8da46bd6.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/HelpModal-a36de979.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/CIs-c6b174ac.js">
 		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/modules/pages/devops/_page.js-94291217.js">
-		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/_page-e94d8ac7.js"><title>CI/CD Comparison</title><!-- HEAD_svelte-mn2mnz_START --><!-- HEAD_svelte-mn2mnz_END -->
+		<link rel="modulepreload" href="/devopsconfigurator/_app/immutable/chunks/_page-da46b06b.js"><title>CI/CD Comparison</title><!-- HEAD_svelte-mn2mnz_START --><!-- HEAD_svelte-mn2mnz_END -->
 		<meta content="DevOps comparator" name="description" />
 		<meta content="interest-cohort=()" http-equiv="Permissions-Policy" />
 		<link
@@ -113,7 +113,7 @@
 
 
 
-<div><div aria-hidden class="offcanvas offcanvas-end w-25" style="visibility: hidden;" tabindex="-1"><div class="offcanvas-header"><h5 class="offcanvas-title">More filters
+<div><div aria-hidden class="offcanvas offcanvas-end" style="visibility: hidden;" tabindex="-1"><div class="offcanvas-header"><h5 class="offcanvas-title">More filters
         </h5>
   
     <button aria-label="Close" class="btn-close" type="button"></button>
@@ -121,8 +121,8 @@
     <div class="offcanvas-body"><div class="d-flex flex-column justify-content-start gap-4"><div class="form-check form-switch"><input placeholder="" class="form-check-input" id="s1" type="checkbox" name="" value="">
   <label class="form-check-label" for="s1">Packaged</label></div>
 
-    <div><p class="mb-2">Cloud OSs:</p>
-      <div class="d-flex flex-row justify-content-start gap-2 w-100">
+		<div><p class="mb-2">Cloud OSs:</p>
+			<div class="d-flex flex-row justify-content-start gap-2 w-100">
 
 <div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
   <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
@@ -158,12 +158,12 @@
           
         </li></ul>
 </div>
-        <select id="exampleSelect" style="width: 80px" class="form-select" name="select"><option value="Or">Or</option><option value="And">And</option></select>
+				<select id="exampleSelect" style="width: 80px" class="form-select" name="select"><option value="Or">Or</option><option value="And">And</option></select>
 
   
 </div></div>
-    <div><p class="mb-2">Self-hosted OSs:</p>
-      <div class="d-flex flex-row justify-content-start gap-2">
+		<div><p class="mb-2">Self-hosted OSs:</p>
+			<div class="d-flex flex-row justify-content-start gap-2">
 
 <div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
   <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
@@ -199,36 +199,36 @@
           
         </li></ul>
 </div>
-        <select id="exampleSelect" style="width: 80px" class="form-select" name="select"><option value="Or">Or</option><option value="And">And</option></select>
+				<select id="exampleSelect" style="width: 80px" class="form-select" name="select"><option value="Or">Or</option><option value="And">And</option></select>
 
   
 </div></div>
 
-    <div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Cloud concurrent builds:</label>
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Cloud concurrent builds:</label>
 	<input max="1000" min="0" step="1" style="font-size: 0.9rem; width: 45px; height: 28px" class="p-1 my-auto  form-control" type="number" name="builds" placeholder="builds" value="0">
 </div>
 
-    <div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Self-hosted runners:</label>
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Self-hosted runners:</label>
 	<input max="1000" min="0" step="1" style="font-size: 0.9rem; width: 45px; height: 28px" class="p-1 my-auto  form-control" type="number" name="runners" placeholder="runners" value="0">
 </div>
 
-    <div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Linux monthly cloud minutes:</label>
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Linux monthly cloud minutes:</label>
 	<input max="" min="0" step="1" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="linuxMinutes" placeholder="linuxMinutes" value="0">
 </div>
 
-    <div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Docker monthly cloud minutes:</label>
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Docker monthly cloud minutes:</label>
 	<input max="" min="0" step="1" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="dockerMinutes" placeholder="dockerMinutes" value="0">
 </div>
 
-    <div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Windows monthly cloud minutes:</label>
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Windows monthly cloud minutes:</label>
 	<input max="" min="0" step="1" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="windowsMinutes" placeholder="windowsMinutes" value="0">
 </div>
 
-    <div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">macOS monthly cloud minutes:</label>
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">macOS monthly cloud minutes:</label>
 	<input max="" min="0" step="1" style="font-size: 0.9rem; width: 90px; height: 28px" class="p-1 my-auto  form-control" type="number" name="macOSMinutes" placeholder="macOSMinutes" value="0">
 </div>
 
-    
+		
 
 <div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
   <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
@@ -371,8 +371,8 @@
 </div>
 
 
-    <div><p class="mb-2">Commercial support:</p>
-      
+		<div><p class="mb-2">Commercial support:</p>
+			
 
 <div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
   <input  value="[]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
@@ -409,11 +409,11 @@
         </li></ul>
 </div></div>
 
-    <div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Results per page:</label>
+		<div class="d-flex flex-row gap-2 mb-0 align-content-center"><label class="my-auto form-label">Results per page:</label>
 	<input max="70" min="1" step="1" style="font-size: 0.9rem; width: 45px; height: 28px" class="p-1 my-auto  form-control" type="number" name="pagination" placeholder="pagination" value="10">
 </div>
 
-    
+		
 
 <div aria-expanded="false" aria-multiselectable="true" class="multiselect  svelte-2agpg7">
   <input  value="[&quot;Brand&quot;,&quot;Service&quot;,&quot;Final Price&quot;,&quot;Packaged&quot;,&quot;Self-hosted&quot;,&quot;CD&quot;,&quot;Git Platforms&quot;,&quot;Plugins&quot;,&quot;Cloud Build OSs&quot;,&quot;Self-hosted Build OSs&quot;,&quot;Price per Extra User&quot;,&quot;Caching&quot;,&quot;Scheduled Pipelines&quot;,&quot;Statistics and Metrics&quot;,&quot;Commercial Support&quot;,&quot;Easy Fill&quot;]" tabindex="-1" aria-hidden="true" aria-label="ignore this, used only to prevent form submission if select is required but empty" class="form-control svelte-2agpg7">
@@ -662,14 +662,14 @@
 </div>
 
 
-		<script type="module" data-sveltekit-hydrate="12xlavq">
-			import { start } from "/devopsconfigurator/_app/immutable/start-90e7276d.js";
+		<script type="module" data-sveltekit-hydrate="1p4rrz6">
+			import { start } from "/devopsconfigurator/_app/immutable/start-b2e5093a.js";
 
 			start({
 				env: {},
 				paths: {"base":"/devopsconfigurator","assets":"/devopsconfigurator"},
-				target: document.querySelector('[data-sveltekit-hydrate="12xlavq"]').parentNode,
-				version: "1676153588324",
+				target: document.querySelector('[data-sveltekit-hydrate="1p4rrz6"]').parentNode,
+				version: "1676154592992",
 				hydrate: {
 					node_ids: [0, 5],
 					data: [null,null],

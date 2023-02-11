@@ -22,46 +22,33 @@
 	const cisBrands = getNBrands(cisEntries);
 	const chatsBrands = getNBrands(chatsEntries);
 
-	// function boolPercentage(field, entries, totalBrands) {
-	// 	let result = 0;
-	// 	let auxAllBrands = [];
-	// 	entries.forEach((entryArr) => {
-	// 		if (!auxAllBrands.includes(entryArr['Brand']) && (entryArr[field] === 'Yes' || entryArr[field] === 'Both')) {
-	// 			auxAllBrands = [...auxAllBrands, entryArr['Brand']];
-	// 			result += 1;
-	// 		}
-	// 	});
-	// 	let yesPercent = Math.round((result / totalBrands) * 100);
-	// 	let noPercent = 100 - yesPercent;
-	// 	return [{ id: `Yes ${yesPercent}%`, nested: { value: result } },
-	// 		{ id: `No ${noPercent}%`, nested: { value: totalBrands - result } }];
-	// }
-
 	function allHighValuesPercentage(field, entries, totalBrands) {
 		let auxAllBrands = [];
-		//Current Hierarchy: ∞ -> Yes with SLA -> !"Yes with SLA"&&Yes -> Both -> !"∞"&&newNº>oldNº -> *users -> No
-		//TODO: RECHECK THIS
+		//Current Hierarchy: ∞ -> Yes with SLA -> !"Yes with SLA"&&Yes -> Both -> !"∞"&&newNº>oldNº -> *users -> -users
 		entries.forEach((entryArr) => {
 			const onAux = auxAllBrands[entryArr['Brand']];
 			const newVal = entryArr[field];
+			if (onAux === newVal) {
+				return;
+			}
 			if (onAux === undefined || newVal === '∞' || newVal === 'Yes with SLA' ||
 				(onAux !== 'Yes with SLA' && newVal === 'Yes') || newVal === 'Both' ||
-				(onAux !== '∞' && !isNaN(newVal) && !isNaN(onAux) && onAux < newVal)) {
+				(onAux !== '∞' && !isNaN(newVal) && !isNaN(onAux) && onAux < newVal) ||
+				// *users has priority over -users, not be true if 1*users vs 300-users but with multiplication it tends to infinity which in general is better.
+				(isNaN(onAux) && isNaN(newVal) && onAux.includes('-users') && newVal.includes('*users'))) {
 				auxAllBrands[entryArr['Brand']] = newVal;
+				return;
 			}
-			else if (isNaN(onAux) && isNaN(newVal) && onAux.includes('-users') && newVal.includes('*users')) {
-				auxAllBrands[entryArr['Brand']] = newVal;
+			// *users has priority over -users, not be true if 1*users vs 300-users but with multiplication it tends to infinity which in general is better.
+			if (isNaN(onAux) && isNaN(newVal) && onAux.includes('*users') && newVal.includes('-users')) {
+				return;
 			}
-			else if (isNaN(onAux) && isNaN(newVal) && onAux.includes('users') && newVal.includes('users') &&
-				evaluate(onAux.replace('users', 1)) < evaluate(newVal.replace('users', 1))) {
-				auxAllBrands[entryArr['Brand']] = newVal;
-			}
-			else if (isNaN(onAux) && !isNaN(newVal) && onAux.includes('users') && evaluate(onAux.replace('users', 1)) <
-				newVal) {
-				auxAllBrands[entryArr['Brand']] = newVal;
-			}
-			else if (!isNaN(onAux) && isNaN(newVal) && newVal.includes('users') && onAux <
-				evaluate(newVal.replace('users', 1))) {
+			//(-users vs -users) or (*users vs *users) || (-users or *users) vs number
+			if (isNaN(onAux) && isNaN(newVal) && onAux.includes('users') && newVal.includes('users') &&
+				evaluate(onAux.replace('users', 1)) < evaluate(newVal.replace('users', 1)) ||
+				((isNaN(onAux) && !isNaN(newVal) && onAux.includes('users') && newVal > evaluate(onAux.replace('users', 1))) ||
+					(!isNaN(onAux) && isNaN(newVal) && newVal.includes('users') && onAux <
+						evaluate(newVal.replace('users', 1))))) {
 				auxAllBrands[entryArr['Brand']] = newVal;
 			}
 		});
@@ -70,9 +57,12 @@
 		for (const value of Object.values(auxAllBrands)) {
 			if (grouped[value] === undefined) grouped[value] = 1; else grouped[value] += 1;
 		}
-		return Object.entries(grouped).map(([key, value]) => {
+		const preppedData = Object.entries(grouped).map(([key, value]) => {
 			const percentage = Math.round((value / totalBrands) * 100);
 			return { id: `${key}, ${percentage}%`, nested: { value: value } };
+		});
+		return preppedData.sort((a, b) => {
+			return b.nested.value - a.nested.value;
 		});
 	}
 </script>
@@ -85,7 +75,9 @@
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>Version Control Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{vcsBrands} Brands</p>
-	<div class='mt-4 d-flex flex-row flex-wrap justify-content-evenly'>
+	<div class='mt-4 d-flex flex-row gap-5 flex-wrap justify-content-evenly'>
+		<Donut data={allHighValuesPercentage('Self-hosted', vcsEntries, vcsBrands)} offsetBy='1'
+					 title='Brands that offer Self-hosted solutions' />
 		<Donut data={allHighValuesPercentage('Issues', vcsEntries, vcsBrands)} offsetBy='1'
 					 title='Brands that offer Issue tracking' />
 		<Donut data={allHighValuesPercentage('Kanban', vcsEntries, vcsBrands)} offsetBy='1'
@@ -94,8 +86,10 @@
 					 title='Brands that offer Wiki documentation' />
 		<Donut data={allHighValuesPercentage('PackageRegistry', vcsEntries, vcsBrands)} offsetBy='1'
 					 title='Brands that offer Package Registry' />
-		<Donut data={allHighValuesPercentage('Self-hosted', vcsEntries, vcsBrands)} offsetBy='1'
-					 title='Brands that offer Self-hosted solutions' />
+		<Bars data={allHighValuesPercentage('NPrivateReposFormula', vcsEntries, vcsBrands)} offsetBy='1'
+					title="Brand's Nº Included Repos" />
+		<Donut data={allHighValuesPercentage('CommercialSupport', vcsEntries, vcsBrands)} offsetBy='1'
+					 title='Brands with Commercial Support' />
 	</div>
 </div>
 
@@ -105,6 +99,22 @@
 	<div class='mt-4 d-flex flex-row flex-wrap gap-5 justify-content-evenly'>
 		<Donut data={allHighValuesPercentage('Self-hosted', cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer Self-hosted solutions' />
+		<Donut data={allHighValuesPercentage('CD', cisEntries, cisBrands)} offsetBy='0'
+					 title='Brands that offer CD solutions' />
+		<Bars data={allHighValuesPercentage('GitPlatformsCompatible', cisEntries, cisBrands)} offsetBy='0'
+					title='Git platforms combinations by Brands' />
+		<Bars data={allHighValuesPercentage('CloudBuildOSs', cisEntries, cisBrands)} offsetBy='0'
+					title='Cloud Build OSs combinations by Brands' />
+		<Bars data={allHighValuesPercentage('Self-hostedRunnersBuildOSs', cisEntries, cisBrands)} offsetBy='0' step='1'
+					title='Self-hosted Build OSs combinations by Brands' />
+		<Donut data={allHighValuesPercentage('CachingPipelineAndDependencies',  cisEntries, cisBrands)} offsetBy='0'
+					 title='Brands that offer Caching in the pipeline' />
+		<Donut data={allHighValuesPercentage('ScheduledPipelines', cisEntries, cisBrands)} offsetBy='0'
+					 title='Brands that offer Scheduled Pipelines' />
+		<Donut data={allHighValuesPercentage('StatisticsAndMetrics', cisEntries, cisBrands)} offsetBy='0'
+					 title='Brands that offer Statistics and Metrics' />
+		<Donut data={allHighValuesPercentage('CommercialSupport', cisEntries, cisBrands)} offsetBy='0'
+					 title='Brands with Commercial Support' />
 	</div>
 </div>
 
@@ -123,7 +133,6 @@
 		<Bars data={allHighValuesPercentage('FreeTemporaryGuestsFormula', chatsEntries, chatsBrands)} offsetBy='2'
 					title="Brand's maximum free temporary guests" xLegend='Nº Guests' />
 
-		<!--TODO: Formula might be wrong because of guests based comparison-->
 		<Bars data={allHighValuesPercentage('ChatFilesFormulaGB', chatsEntries, chatsBrands)} offsetBy='2'
 					title="Brand's maximum chat files space" xLegend='GB' />
 

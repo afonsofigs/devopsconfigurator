@@ -8,6 +8,7 @@
 	import vcsJson from '$lib/jsons/VCs.json';
 	import GreenSwitch from '$lib/commons/GreenSwitch.svelte';
 	import SideMenu from './SideMenu.svelte';
+	import { evaluate } from 'mathjs';
 
 	let colIDIdx = 0; //Index of the column "colID"
 	let vcsEntries = []; //[]
@@ -79,11 +80,11 @@
 		}
 
 		function checkPrivateRepos(arr) {
-			return arr['NPrivateReposIncluded'] === '∞' || privateRepos <= parseInt(arr['FinalNRepos']);
+			return arr['FinalNRepos'] === '∞' || privateRepos <= parseInt(arr['FinalNRepos']);
 		}
 
 		function checkDiskGB(arr) {
-			if (arr['DiskSpaceGB'] === '∞' || diskSpace <= parseFloat(arr['FinalDiskSpace'])) {
+			if (arr['FinalDiskSpace'] === '∞' || diskSpace <= parseFloat(arr['FinalDiskSpace'])) {
 				return true;
 			}
 			else {
@@ -125,24 +126,17 @@
 
 		function calcUsersBasedValues(arr) {
 			function calcNPrivateRepos() {
-				if (arr['NPrivateReposIncluded'] === '∞') return '∞';
-				const parsedNPrivateReposIncluded = parseInt(arr['NPrivateReposIncluded']);
-				const parsedNPrivateReposPerExtraUser = parseInt(arr['NPrivateReposPerExtraUser']);
-
-				if (parsedNPrivateReposPerExtraUser === 0) return parsedNPrivateReposIncluded;
-				return parsedNPrivateReposIncluded + extraUsers(arr) * parsedNPrivateReposPerExtraUser;
+				if (arr['NPrivateReposFormula'] === '∞' || !isNaN(arr['NPrivateReposFormula'])) {
+					return arr['NPrivateReposFormula'];
+				}
+				return evaluate(arr['NPrivateReposFormula'].replace('extraUsers', extraUsers(arr)));
 			}
 
 			function calcDiskSpace() {
-				if (arr['DiskSpaceGB'] === '∞') return '∞';
-
-				const parsedDiskSpace = parseFloat(arr['DiskSpaceGB']);
-				const parsedDiskSpaceExtraUserGB = parseFloat(arr['DiskSpaceExtraUserGB']);
-
-				if (parsedDiskSpaceExtraUserGB === 0) return parsedDiskSpace;
-				let included = parsedDiskSpace + extraUsers(arr) * parsedDiskSpaceExtraUserGB;
-
-				return included < diskSpace ? diskSpace : included;
+				if (arr['DiskSpaceGBFormula'] === '∞' || !isNaN(arr['DiskSpaceGBFormula'])) {
+					return arr['DiskSpaceGBFormula'];
+				}
+				return evaluate(arr['DiskSpaceGBFormula'].replace('extraUsers', extraUsers(arr)));
 			}
 
 			arr['FinalNRepos'] = calcNPrivateRepos();
@@ -156,12 +150,13 @@
 
 			function priceDiskGB() {
 				if (arr['PriceExtraGBDiskSpace'] === 'N/A') return 0;
-				if (arr['DiskSpaceGB'] === '∞') return 0;
+				if (arr['FinalDiskSpace'] === '∞') return 0;
 				const extraGBs = (() => {
-					const parsedDiskSpaceGB = parseFloat(arr['DiskSpaceGB']);
+					const parsedDiskSpaceGB = parseFloat(arr['FinalDiskSpace']);
 					if (parsedDiskSpaceGB >= diskSpace) return 0;
 					return diskSpace - parsedDiskSpaceGB;
 				})();
+				if (extraGBs > 0) arr['FinalDiskSpace'] = String(diskSpace);
 				return extraGBs * parseFloat(arr['PriceExtraGBDiskSpace']);
 			}
 
@@ -211,7 +206,7 @@
 	<title>VCs Comparison</title>
 </svelte:head>
 
-<div class='mt-4' />
+<div class='mt-4'></div>
 <div class='d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5'>
 	<NumberInput bind:value={users} classNames='bg-light' label='Users' min='1' placeholder='users' width='60px' />
 	<div class='d-flex flex-row gap-2 mb-0 align-content-center'>

@@ -6,6 +6,7 @@
 	import Donut from './Donut.svelte';
 	import Bars from './Bars.svelte';
 	import { evaluate } from 'mathjs';
+	import Lines from './Lines.svelte';
 
 	let vcsEntries = vcsJson['VCs'].slice(1);
 	let cisEntries = cisJson['CIs'].slice(1);
@@ -65,6 +66,37 @@
 			return b.nested.value - a.nested.value;
 		});
 	}
+
+	function pricePerUser(maxUsers, entries, step = 1) {
+		let averages = [];
+		for (let currUser = 1; currUser <= maxUsers; currUser += step) {
+			averages = [...averages, {
+				id: currUser, nested: {
+					value: ((entries.reduce((acc, arr) => {
+						if (arr['MaxUsers'] !== '∞' && arr['MaxUsers'] < currUser) return acc;
+
+						function extraUsers() {
+							if (arr['IncludedUsers'] === '∞') return 0;
+							const parsedIncludedUsers = parseInt(arr['IncludedUsers']);
+							if (parsedIncludedUsers >= currUser) return 0;
+							return currUser - parsedIncludedUsers;
+						}
+
+						function priceUsers() {
+							return extraUsers() * parseFloat(arr['PriceExtraUser$']);
+						}
+
+						function finalPrice() {
+							return Math.round((parseFloat(arr['LicenseCost$PerMonth']) + priceUsers() + Number.EPSILON) * 100) / 100;
+						}
+
+						return acc + finalPrice();
+					}, 0) / entries.length))
+				}
+			}];
+		}
+		return averages;
+	}
 </script>
 
 <svelte:head>
@@ -74,8 +106,10 @@
 <div class='mt-4'></div>
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>Version Control Stats</p>
-	<p class='h5 text-center w-100 opacity-50'>{vcsBrands} Brands</p>
+	<p class='h5 text-center w-100 opacity-50'>{vcsBrands} Brands, {vcsEntries.length} Tiers</p>
 	<div class='mt-4 d-flex flex-row gap-5 flex-wrap justify-content-evenly'>
+		<Lines data={pricePerUser(100, vcsEntries,2)} offsetBy='1' title='Average tier total price per nº of users'
+					 xLegend='Nº Users' />
 		<Donut data={allHighValuesPercentage('Self-hosted', vcsEntries, vcsBrands)} offsetBy='1'
 					 title='Brands that offer Self-hosted solutions' />
 		<Donut data={allHighValuesPercentage('Issues', vcsEntries, vcsBrands)} offsetBy='1'
@@ -87,7 +121,7 @@
 		<Donut data={allHighValuesPercentage('PackageRegistry', vcsEntries, vcsBrands)} offsetBy='1'
 					 title='Brands that offer Package Registry' />
 		<Bars data={allHighValuesPercentage('NPrivateReposFormula', vcsEntries, vcsBrands)} offsetBy='1'
-					title="Brand's Nº Included Repos" />
+					title="Brand's Nº Included Repos" xLegend='Nº Private Repos' />
 		<Donut data={allHighValuesPercentage('CommercialSupport', vcsEntries, vcsBrands)} offsetBy='1'
 					 title='Brands with Commercial Support' />
 	</div>
@@ -95,18 +129,20 @@
 
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>CI/CD Stats</p>
-	<p class='h5 text-center w-100 opacity-50'>{cisBrands} Brands</p>
+	<p class='h5 text-center w-100 opacity-50'>{cisBrands} Brands, {cisEntries.length} Tiers</p>
 	<div class='mt-4 d-flex flex-row flex-wrap gap-5 justify-content-evenly'>
+		<Lines data={pricePerUser(100, cisEntries,2)} offsetBy='0' title='Average tier total price per nº of users'
+					 xLegend='Nº Users' />
 		<Donut data={allHighValuesPercentage('Self-hosted', cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer Self-hosted solutions' />
 		<Donut data={allHighValuesPercentage('CD', cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer CD solutions' />
 		<Bars data={allHighValuesPercentage('GitPlatformsCompatible', cisEntries, cisBrands)} offsetBy='0'
-					title='Git platforms combinations by Brands' />
+					title='Git platforms combinations by Brands' xLegend='Git platforms combinations' />
 		<Bars data={allHighValuesPercentage('CloudBuildOSs', cisEntries, cisBrands)} offsetBy='0'
-					title='Cloud Build OSs combinations by Brands' />
+					title='Cloud Build OSs combinations by Brands' xLegend='Cloud Build OSs combinations' />
 		<Bars data={allHighValuesPercentage('Self-hostedRunnersBuildOSs', cisEntries, cisBrands)} offsetBy='0' step='1'
-					title='Self-hosted Build OSs combinations by Brands' />
+					title='Self-hosted Build OSs combinations by Brands' xLegend='Self-hosted OSs combinations' />
 		<Donut data={allHighValuesPercentage('CachingPipelineAndDependencies',  cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer Caching in the pipeline' />
 		<Donut data={allHighValuesPercentage('ScheduledPipelines', cisEntries, cisBrands)} offsetBy='0'
@@ -120,8 +156,10 @@
 
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>Chats Stats</p>
-	<p class='h5 text-center w-100 opacity-50'>{chatsBrands} Brands</p>
+	<p class='h5 text-center w-100 opacity-50'>{chatsBrands} Brands, {chatsEntries.length} Tiers</p>
 	<div class='mt-4 d-flex flex-row flex-wrap gap-5 justify-content-evenly'>
+		<Lines data={pricePerUser(100, chatsEntries, 2)} offsetBy='2' title='Average tier total price per nº of users'
+					 xLegend='Nº Users' />
 		<Bars data={allHighValuesPercentage('PeoplePerCall', chatsEntries, chatsBrands)} offsetBy='2'
 					title="Brand's maximum users per call" xLegend='Users' />
 		<Donut data={allHighValuesPercentage('MsgHistory', chatsEntries, chatsBrands)} offsetBy='2'

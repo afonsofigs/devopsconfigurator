@@ -144,7 +144,7 @@
 				if (arr['IncludedUsers'] === '∞') return 0;
 				const parsedIncludedUsers = parseInt(arr['IncludedUsers']);
 				if (parsedIncludedUsers >= users) return 0;
-				return (users - parsedIncludedUsers) * parseFloat(arr['PriceExtraUser']);
+				return (users - parsedIncludedUsers) * parseFloat(arr['PriceExtraUser$']);
 			}
 
 			function priceCloudConcurrentBuilds() {

@@ -88,7 +88,6 @@
 				}
 			}
 		});
-		console.log(possibleValues);
 		const preppedData = possibleValues.map(e => {
 			const percentage = Math.round((e.hits / totalBrands) * 100);
 			return { id: `${e.name}, ${percentage}%`, nested: { value: e.hits } };
@@ -139,9 +138,8 @@
 	<title>Statistics</title>
 </svelte:head>
 
-<div class='mt-4'></div>
-<div class='mt-5'>
-	<p class='h2 mb-1 text-center w-100 opacity-75'>Version Control Stats</p>
+<div style='margin-top: 75px!important;'>
+	<p class='h2 text-center opacity-75'>Version Control Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{vcsBrands} Brands, {vcsEntries.length} Tiers</p>
 	<div class='mt-4 d-flex flex-row gap-4 flex-wrap justify-content-evenly'>
 		<Lines data={pricePerUser(100, vcsEntries,2)} offsetBy='1' title='Average cloud-based monthly price per nº of users'

@@ -1,9 +1,9 @@
 <script>
 	import Header from './Header.svelte';
 	import './styles.css';
-</script>
+</script><!--<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css' rel='stylesheet'>-->
 
-<div class="app">
+<div class='app'>
 	<Header />
 	<main>
 		<slot />

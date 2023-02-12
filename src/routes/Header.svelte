@@ -3,30 +3,27 @@
 	import logo from '$lib/images/NOVA_RGB_DIGITAL_DEPART_HORIZ_POSIT_001.png';
 	import github from '$lib/images/github.svg';
 	import { base } from '$app/paths';
+
+	let nova_logo = 'https://github.com/afonsofigs/devopsconfigurator/blob/d2b2a7ebc361ea23400b56f6dba2c94a76f4fcf3/build/_app/immutable/assets/NOVA_RGB_DIGITAL_DEPART_HORIZ_POSIT_001-07f694f4.png?raw=true';
+	let git_logo = 'https://raw.githubusercontent.com/afonsofigs/devopsconfigurator/d2b2a7ebc361ea23400b56f6dba2c94a76f4fcf3/build/_app/immutable/assets/github-1ea8d62e.svg';
+	if ($page.url.hostname === 'afonsofigs.github.io') {
+		nova_logo = logo;
+		git_logo = github;
+	}
 </script>
 
-<header>
-	<div class="corner flex flex-grow-1 mt-2">
-		<a
-			class="justify-content-start ps-5"
-			href="https://www.fct.unl.pt/"
-			rel="noreferrer"
-			target="_blank"
-		>
-			<img alt="SST-UNL" class="h-100 w-auto" src={logo} />
-		</a>
+<header class='px-4'>
+	<div class='mt-2 corner'>
+		<a href='https://www.fct.unl.pt/' rel='noreferrer' target='_blank'> <img alt='SST-UNL' src={nova_logo} /> </a>
 	</div>
-
-	<nav class="flex flex-grow-1">
-		<svg aria-hidden="true" viewBox="0 0 2 3">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
+	<nav>
+		<svg aria-hidden='true' viewBox='0 0 2 3'>
+			<path d='M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z' />
 		</svg>
 		<ul>
-			<li
-				aria-current={$page.url.pathname === base + '/' || $page.url.pathname === base
+			<li aria-current={$page.url.pathname === base + '/' || $page.url.pathname === base
 					? 'page'
-					: 'false'}
-			>
+					: 'false'}>
 				<a href={base + '/'}>Home</a>
 			</li>
 			<li aria-current={$page.url.pathname === base + '/about' ? 'page' : 'false'}>
@@ -45,19 +42,14 @@
 				<a href={base + '/stats'}>Stats</a>
 			</li>
 		</ul>
-		<svg aria-hidden="true" viewBox="0 0 2 3">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
+		<svg aria-hidden='true' viewBox='0 0 2 3'>
+			<path d='M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z' />
 		</svg>
 	</nav>
 
-	<div class="corner flex flex-grow-1 mt-2">
-		<a
-			class="justify-content-end pe-5"
-			href="https://github.com/afonsofigs/devopsconfigurator"
-			rel="noreferrer"
-			target="_blank"
-		>
-			<img alt="GitHub" src={github} />
+	<div class='mt-2 corner'>
+		<a href='https://github.com/afonsofigs/devopsconfigurator' rel='noreferrer' target='_blank'> <img alt='GitHub'
+																																																			src={git_logo} />
 		</a>
 	</div>
 </header>
@@ -67,48 +59,36 @@
 		display: flex;
 		justify-content: space-between;
 		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
 		z-index: 2;
-	}
-
-	.corner {
-		width: 3em;
-		height: 3em;
-	}
-
-	.corner a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		height: 48px;
 		width: 100%;
-		height: 100%;
 	}
 
 	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
+		width: auto;
+		height: 3.5vw;
+		max-height: 40px;
 	}
 
 	nav {
 		display: flex;
-		justify-content: center;
 		--background: rgba(255, 255, 255, 1);
+		position: fixed;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 
-	svg {
+	nav svg {
 		width: 2em;
 		height: 3em;
 		display: block;
 	}
 
-	path {
+	nav path {
 		fill: var(--background);
 	}
 
-	ul {
+	nav ul {
 		position: relative;
 		padding: 0;
 		margin: 0;
@@ -125,6 +105,7 @@
 		position: relative;
 		height: 100%;
 	}
+
 
 	li[aria-current='page']::before {
 		--size: 6px;
@@ -150,6 +131,17 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
+	}
+
+	@media (max-width: 500px) {
+		nav a {
+			font-size: 0.7rem;
+			padding: 0 0.2rem;
+		}
+
+		.corner {
+			display: none;
+		}
 	}
 
 	a:hover {

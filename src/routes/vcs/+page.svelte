@@ -1,4 +1,4 @@
-<script>
+<script xmlns='http://www.w3.org/1999/html'>
 	import { Button, ButtonGroup, Label } from 'sveltestrap';
 	import '$lib/commons/styles.css';
 	import { ignoredVCFieldsDefault, selfHosted } from '$lib/commons/options.js';
@@ -9,6 +9,9 @@
 	import GreenSwitch from '$lib/commons/GreenSwitch.svelte';
 	import SideMenu from './SideMenu.svelte';
 	import { evaluate } from 'mathjs';
+	import { InfoCircle } from 'svelte-bootstrap-icons';
+	import HelpModal from '$lib/commons/HelpModal.svelte';
+
 
 	let colIDIdx = 0; //Index of the column "colID"
 	let vcsEntries = []; //[]
@@ -32,6 +35,7 @@
 	let fieldsSelected = []; //[]
 
 	let rowModalOpen = false; //false
+	let helpModalOpen = false; //false
 	let modalColID = 0; //0
 	let sideMenuOpen = false; //false
 
@@ -206,8 +210,13 @@
 	<title>VCs Comparison</title>
 </svelte:head>
 
-<div class='mt-4'></div>
-<div class='d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-5'>
+<div class='d-flex flex-row justify-content-center align-items-top gap-1' style='margin-top: 75px!important;'>
+	<p class='h2 opacity-75'>Version Control Comparisons</p>
+	<a href on:click={(e) => helpModalOpen=!helpModalOpen}>
+		<InfoCircle height={18} width={18} />
+	</a>
+</div>
+<div class='d-flex flex-row flex-wrap gap-4 justify-content-center align-content-center mb-3 mt-4'>
 	<NumberInput bind:value={users} classNames='bg-light' label='Users' min='1' placeholder='users' width='60px' />
 	<div class='d-flex flex-row gap-2 mb-0 align-content-center'>
 		<Label class='my-auto' for='runnersInput'>Self-hosted</Label>
@@ -241,6 +250,7 @@
 			style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '100px' } }} />
 
 <RowModal {allFields} bind:rowModalOpen fullRow={vcsEntries[modalColID]} />
+<HelpModal bind:helpModalOpen category='VCs' title='Version Control Help' />
 
 <SideMenu bind:allBrands bind:allFieldNames bind:brandsSelected bind:currentPagination bind:fieldsSelected
 					bind:kanbanChecked bind:packageRegistryChecked bind:sideMenuOpen bind:supportSelected />

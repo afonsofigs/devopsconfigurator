@@ -12,8 +12,9 @@
 	export let data = [];
 	export let title = 'Default title';
 </script>
-
-<Doughnut data={{
+<div class='d-flex flex-column align-items-center gap-1'>
+	<p class='my-0 h6 opacity-75'>{title}</p>
+	<Doughnut data={{
 		labels: data.map((val) => val.id),
 		datasets: [
 			{
@@ -22,15 +23,10 @@
 				hoverBackgroundColor: offset(donutHoverBackgroundColor, offsetBy)
 			}
 		]
-	}} height='230' options={{
+	}} height='220' options={{
 		parsing: {
 			key: 'nested.value'
 		},
-		plugins: {
-			title: {
-				display: true,
-				text: title
-			}
-		},
 		responsive: false
-	}} width='230' />
+	}} width='220' />
+</div>

@@ -230,7 +230,7 @@
 
 <div class='d-flex flex-row justify-content-center align-items-top gap-1' style='margin-top: 75px!important;'>
 	<p class='h2 opacity-75'>CI/CD Comparisons</p>
-	<a href on:click={(e) => helpModalOpen=!helpModalOpen}>
+	<a href on:click={() => helpModalOpen=!helpModalOpen}>
 		<InfoCircle height={18} width={18} />
 	</a>
 </div>

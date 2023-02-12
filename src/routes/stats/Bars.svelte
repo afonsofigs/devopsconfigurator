@@ -16,8 +16,9 @@
 	export let xLegend = 'Legend X';
 	export let yLegend = 'Nº Brands';
 </script>
-
-<Bar data={{
+<div class='d-flex flex-column align-items-center gap-1'>
+	<p class='my-0 h6 opacity-75'>{title}</p>
+	<Bar data={{
 		datasets: [
 			{
 				data: data,
@@ -25,16 +26,12 @@
 				hoverBackgroundColor: offset(donutHoverBackgroundColor, offsetBy)
 			}
 		]
-	}} height='260' options={{
+	}} height='220' options={{
 		parsing: {
 			xAxisKey: 'id',
 			yAxisKey: 'nested.value'
 		},
 		plugins: {
-			title: {
-				display: true,
-				text: title
-			},
 			legend: {
 				display: false
 			}
@@ -58,4 +55,5 @@
         }
       }
     }
-	}} width='410' />
+	}} width='400' />
+</div>

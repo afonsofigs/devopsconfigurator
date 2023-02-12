@@ -141,7 +141,7 @@
 <div style='margin-top: 75px!important;'>
 	<p class='h2 text-center opacity-75'>Version Control Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{vcsBrands} Brands, {vcsEntries.length} Tiers</p>
-	<div class='mt-4 d-flex flex-row gap-4 flex-wrap justify-content-evenly'>
+	<div class='mt-4 d-flex flex-row gap-5 flex-wrap justify-content-evenly'>
 		<Lines data={pricePerUser(100, vcsEntries,2)} offsetBy='1' title='Average cloud-based monthly price per nº of users'
 					 xLegend='Nº Users' />
 		<Donut data={allHighValuesPercentage('Self-hosted', vcsEntries, vcsBrands)} offsetBy='1'
@@ -164,7 +164,7 @@
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>CI/CD Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{cisBrands} Brands, {cisEntries.length} Tiers</p>
-	<div class='mt-4 d-flex flex-row flex-wrap gap-4 justify-content-evenly'>
+	<div class='mt-4 d-flex flex-row flex-wrap gap-5 justify-content-evenly'>
 		<Lines data={pricePerUser(100, cisEntries,2)} offsetBy='0' title='Average cloud-based monthly price per nº of users'
 					 xLegend='Nº Users' />
 		<Donut data={allHighValuesPercentage('Self-hosted', cisEntries, cisBrands)} offsetBy='0'
@@ -183,15 +183,15 @@
 					 title='Brands that offer Scheduled Pipelines' />
 		<Donut data={allHighValuesPercentage('StatisticsAndMetrics', cisEntries, cisBrands)} offsetBy='0'
 					 title='Brands that offer Statistics and Metrics' />
-		<Donut data={allHighValuesPercentage('CommercialSupport', cisEntries, cisBrands)} offsetBy='0'
-					 title='Brands with Commercial Support' />
+		<Bars data={allHighValuesPercentage('CommercialSupport', cisEntries, cisBrands)} offsetBy='0'
+					title='Brands with Commercial Support' />
 	</div>
 </div>
 
 <div class='mt-5'>
 	<p class='h2 mb-1 text-center w-100 opacity-75'>Chats Stats</p>
 	<p class='h5 text-center w-100 opacity-50'>{chatsBrands} Brands, {chatsEntries.length} Tiers</p>
-	<div class='mt-4 d-flex flex-row flex-wrap gap-4 justify-content-evenly'>
+	<div class='mt-4 d-flex flex-row flex-wrap gap-5 justify-content-evenly'>
 		<Lines data={pricePerUser(100, chatsEntries, 2)} offsetBy='2'
 					 title='Average cloud-based monthly price per nº of users' xLegend='Nº Users' />
 		<Bars data={allHighValuesPercentage('PeoplePerCall', chatsEntries, chatsBrands)} offsetBy='2'

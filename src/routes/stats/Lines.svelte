@@ -18,8 +18,9 @@
 	export let xLegend = 'Legend X';
 	export let yLegend = 'Price';
 </script>
-
-<Line data={{
+<div class='d-flex flex-column align-items-center gap-1'>
+	<p class='my-0 h6 opacity-75'>{title}</p>
+	<Line data={{
 		labels: data.map((val) => val.id),
 		datasets: [
 			{
@@ -28,16 +29,12 @@
 				hoverBackgroundColor: offset(donutHoverBackgroundColor, offsetBy)
 			}
 		]
-	}} height='260' options={{
+	}} height='220' options={{
 		parsing: {
 			xAxisKey: 'id',
 			yAxisKey: 'nested.value'
 		},
 		plugins: {
-			title: {
-				display: true,
-				text: title
-			},
 			legend: {
 				display: false
 			}
@@ -71,4 +68,5 @@
 					}
 			}
 
-	}} width='410' />
+	}} width='400' />
+</div>

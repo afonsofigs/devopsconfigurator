@@ -22,7 +22,7 @@
 
 	let users = 1; //1
 	let privateRepos = 1; //1
-	let diskSpace = 0.1; //Minimum on the list is currently 0.1
+	let diskSpace = 1;
 	let allBrands = []; //[]
 	let selfHostedChecked = 'Both'; //"Both"
 	let issuesChecked = false;
@@ -60,8 +60,21 @@
 			}
 		});
 
-		vcsEntries.forEach(
-			(vcsArr) => auxAllBrands.includes(vcsArr['Brand']) ? '' : (auxAllBrands = [...auxAllBrands, vcsArr['Brand']]));
+		vcsEntries.forEach((vcsArr) => {
+			auxAllBrands.includes(vcsArr['Brand']) ? '' : (auxAllBrands = [...auxAllBrands, vcsArr['Brand']]);
+			const diskSpaceFormula = vcsArr['DiskSpaceGBFormula'];
+			if (diskSpaceFormula === '∞') {}
+			else if (isNaN(diskSpaceFormula)) {
+				const evalledFormula = evaluate(diskSpaceFormula.replace('extraUsers', 0));
+				if (evalledFormula < diskSpace) {
+					diskSpace = evalledFormula;
+				}
+			}
+			else if (diskSpaceFormula < diskSpace) {
+				diskSpace = diskSpaceFormula;
+			}
+
+		});
 
 		allFields = auxFields;
 
@@ -212,7 +225,7 @@
 
 <div class='d-flex flex-row justify-content-center align-items-top gap-1' style='margin-top: 75px!important;'>
 	<p class='h2 opacity-75'>Version Control Comparisons</p>
-	<a href on:click={(e) => helpModalOpen=!helpModalOpen}>
+	<a href on:click={() => helpModalOpen=!helpModalOpen}>
 		<InfoCircle height={18} width={18} />
 	</a>
 </div>

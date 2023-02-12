@@ -156,6 +156,8 @@
 					 title='Brands that offer Package Registry' />
 		<Bars data={allHighValuesPercentage('NPrivateReposFormula', vcsEntries, vcsBrands)} offsetBy='1'
 					title="Brand's Nº Included Repos" xLegend='Nº Private Repos' />
+		<Bars data={allHighValuesPercentage('DiskSpaceGBFormula', vcsEntries, vcsBrands)} offsetBy='1'
+					title="Brand's base disk GB included" xLegend='Disk GB' />
 		<Donut data={allHighValuesPercentage('CommercialSupport', vcsEntries, vcsBrands)} offsetBy='1'
 					 title='Brands with Commercial Support' />
 	</div>

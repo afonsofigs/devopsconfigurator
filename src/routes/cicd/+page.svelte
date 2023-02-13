@@ -10,6 +10,7 @@
 	import { InfoCircle } from 'svelte-bootstrap-icons';
 	import HelpModal from '$lib/commons/HelpModal.svelte';
 	import Grids from '$lib/commons/Grids.svelte';
+	import Title from '$lib/commons/Title.svelte';
 
 	let allFieldNames = []; //[]
 	let ciEntries = []; //[]
@@ -205,9 +206,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>CI/CD Comparison</title>
-</svelte:head>
+<Title prefix='CI/CD' />
 
 <div class='d-flex flex-row justify-content-center align-items-top gap-1' style='margin-top: 75px!important;'>
 	<p class='h2 opacity-75'>CI/CD Comparisons</p>
@@ -222,7 +221,7 @@
 		<ButtonGroup>
 			{#each selfHosted as selfHostedState}
 				<Button size='sm' color='light' active={selfHostedChecked === selfHostedState}
-								on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button>
+								on:click={(e) => (selfHostedChecked = e.target.innerText)}>{selfHostedState}</Button>
 			{/each}
 		</ButtonGroup>
 	</div>

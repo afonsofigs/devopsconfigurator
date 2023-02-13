@@ -10,6 +10,7 @@
 	import { InfoCircle } from 'svelte-bootstrap-icons';
 	import HelpModal from '$lib/commons/HelpModal.svelte';
 	import Grids from '$lib/commons/Grids.svelte';
+	import Title from '$lib/commons/Title.svelte';
 
 
 	let colIDIdx = 0; //Index of the column "colID"
@@ -206,9 +207,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>VCs Comparison</title>
-</svelte:head>
+<Title prefix='Version Control' />
 
 <div class='d-flex flex-row justify-content-center align-items-top gap-1' style='margin-top: 75px!important;'>
 	<p class='h2 opacity-75'>Version Control Comparisons</p>
@@ -223,7 +222,7 @@
 		<ButtonGroup>
 			{#each selfHosted as selfHostedState}
 				<Button size='sm' color='light' active={selfHostedChecked === selfHostedState}
-								on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button>
+								on:click={(e) => (selfHostedChecked = e.target.innerText)}>{selfHostedState}</Button>
 			{/each}
 		</ButtonGroup>
 	</div>

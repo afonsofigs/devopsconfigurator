@@ -1,15 +1,9 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from '$lib/images/NOVA_RGB_DIGITAL_DEPART_HORIZ_POSIT_001.png';
-	import github from '$lib/images/github.svg';
 	import { base } from '$app/paths';
 
-	let nova_logo = 'https://github.com/afonsofigs/devopsconfigurator/blob/d2b2a7ebc361ea23400b56f6dba2c94a76f4fcf3/build/_app/immutable/assets/NOVA_RGB_DIGITAL_DEPART_HORIZ_POSIT_001-07f694f4.png?raw=true';
-	let git_logo = 'https://raw.githubusercontent.com/afonsofigs/devopsconfigurator/d2b2a7ebc361ea23400b56f6dba2c94a76f4fcf3/build/_app/immutable/assets/github-1ea8d62e.svg';
-	if ($page.url.hostname === 'afonsofigs.github.io') {
-		nova_logo = logo;
-		git_logo = github;
-	}
+	const nova_logo = base + '/images/NOVA_RGB_DIGITAL_DEPART_HORIZ_POSIT_001.png';
+	const git_logo = base + '/images/github.svg';
 </script>
 
 <header class='px-4'>
@@ -25,9 +19,6 @@
 					? 'page'
 					: 'false'}>
 				<a href={base + '/'}>Home</a>
-			</li>
-			<li aria-current={$page.url.pathname === base + '/about' ? 'page' : 'false'}>
-				<a href={base + '/about'}>About</a>
 			</li>
 			<li aria-current={$page.url.pathname === base + '/vcs' ? 'page' : 'false'}>
 				<a href={base + '/vcs'}>VC</a>

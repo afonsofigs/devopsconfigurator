@@ -7,6 +7,7 @@
 	import Bars from './Bars.svelte';
 	import { evaluate } from 'mathjs';
 	import Lines from './Lines.svelte';
+	import Title from '$lib/commons/Title.svelte';
 
 	let vcsEntries = vcsJson['VCs'].slice(1);
 	let cisEntries = cisJson['CIs'].slice(1);
@@ -134,9 +135,7 @@
 
 </script>
 
-<svelte:head>
-	<title>Statistics</title>
-</svelte:head>
+<Title prefix='Statistics' />
 
 <div style='margin-top: 75px!important;'>
 	<p class='h2 text-center opacity-75'>Version Control Stats</p>

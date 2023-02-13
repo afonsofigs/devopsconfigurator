@@ -10,6 +10,7 @@
 	import { InfoCircle } from 'svelte-bootstrap-icons';
 	import HelpModal from '$lib/commons/HelpModal.svelte';
 	import Grids from '$lib/commons/Grids.svelte';
+	import Title from '$lib/commons/Title.svelte';
 
 	let colIDIdx = 0; //Index of the column "colID"
 	let chatsEntries = []; //[]
@@ -163,13 +164,10 @@
 	function openSideMenu() {
 		sideMenuOpen = !sideMenuOpen;
 	}
-
-	//TODO: e.srcElement switch to e.target on button click
 </script>
 
-<svelte:head>
-	<title>Chats Comparison</title>
-</svelte:head>
+<Title prefix='Chats' />
+
 <div class='d-flex flex-row justify-content-center align-items-top gap-1' style='margin-top: 75px!important;'>
 	<p class='h2 opacity-75'>Chats Comparisons</p>
 	<a href on:click={() => helpModalOpen=!helpModalOpen}>
@@ -183,7 +181,7 @@
 		<ButtonGroup>
 			{#each selfHosted as selfHostedState}
 				<Button size='sm' color='light' active={selfHostedChecked === selfHostedState}
-								on:click={(e) => (selfHostedChecked = e.srcElement.innerText)}>{selfHostedState}</Button>
+								on:click={(e) => selfHostedChecked = e.target.innerText}>{selfHostedState}</Button>
 			{/each}
 		</ButtonGroup>
 	</div>

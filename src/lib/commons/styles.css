@@ -18,8 +18,8 @@ div.gridjs-head > div > input {
     max-width: 600px !important;
 }
 
-/*@media only screen and (max-width: 992px) {*/
-/*    .offcanvas {*/
-/*        width: 100% !important;*/
-/*    }*/
-/*}*/
+@media only screen and (max-width: 600px) {
+    .offcanvas {
+        width: 100% !important;
+    }
+}

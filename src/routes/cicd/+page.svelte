@@ -2,15 +2,14 @@
 	import { Button, ButtonGroup, Input, Label } from 'sveltestrap';
 	import '$lib/commons/styles.css';
 	import MultiSelect from 'svelte-multiselect';
-	import { boolJoins, gitPlatforms, ignoredFieldsDefault, selfHosted } from '$lib/commons/options.js';
+	import { boolJoins, gitPlatforms, ignoredCICDFieldsDefault, selfHosted } from '$lib/commons/options.js';
 	import MultiOptionSlot from '$lib/commons/MultiOptionSlot.svelte';
 	import NumberInput from '$lib/commons/NumberInput.svelte';
-	import Grid from 'gridjs-svelte';
-	import RowModal from '$lib/commons/RowModal.svelte';
 	import SideMenu from './SideMenu.svelte';
 	import cisJson from '$lib/jsons/CIs.json';
 	import { InfoCircle } from 'svelte-bootstrap-icons';
 	import HelpModal from '$lib/commons/HelpModal.svelte';
+	import Grids from '$lib/commons/Grids.svelte';
 
 	let allFieldNames = []; //[]
 	let ciEntries = []; //[]
@@ -18,7 +17,6 @@
 	let colIDIdx = 0; //Index of the column "colID"
 	let allFields = []; //[]
 	let allBrands = []; //[]
-	let basePagination = 10; //10
 
 	let users = 1; //1
 	let concurrentBuilds = 0; //0
@@ -28,7 +26,6 @@
 	let dockerMonthlyCloudMins = 0; //0
 	let windowsMonthlyCloudMins = 0; //0
 	let macOSMonthlyCloudMins = 0; //0
-	let packagedChecked = false; //false
 	let cdChecked = false; //false
 	let gitPlatformsSelected = []; //[]
 	let fieldsSelected = []; //[]
@@ -42,7 +39,6 @@
 
 	let rowModalOpen = false; //false
 	let helpModalOpen = false; //false
-	let modalColID = 0; //0
 
 	let sideMenuOpen = false; //false
 
@@ -69,8 +65,8 @@
 		allFields = auxFields;
 
 		//Exclude fields ignored by default from the selected
-		auxFields.forEach(
-			(field) => ignoredFieldsDefault.includes(field.id) ? null : (fieldsSelected = [...fieldsSelected, field.name]));
+		auxFields.forEach((field) => ignoredCICDFieldsDefault.includes(field.id) ? null : (fieldsSelected =
+			[...fieldsSelected, field.name]));
 
 		allFieldNames = auxFieldNames;
 		allBrands = auxAllBrands;
@@ -80,10 +76,6 @@
 	function filteredData() {
 		function checkBrand(arr) {
 			return brandsSelected.length === 0 || brandsSelected.includes(arr['Brand']);
-		}
-
-		function checkPackage(arr) {
-			return !packagedChecked || (packagedChecked && arr['Packaged'] === 'Yes');
 		}
 
 		function checkSelfHosted(arr) {
@@ -190,10 +182,9 @@
 
 		filteredEntries = ciEntries
 			.filter((arr) => {
-				return (checkBrand(arr) && checkPackage(arr) && checkGitPlatforms(arr) && checkCloudBuildOSs(arr) &&
-					checkSelfHostedBuildOSs(arr) && checkUsers(arr) && checkCD(arr) && checkSelfHosted(arr) &&
-					checkConcurrentBuilds(arr) && checkSelfHostedRunners(arr) &&
-					checkCloudBuilds(arr, 'Linux', linuxMonthlyCloudMins) &&
+				return (checkBrand(arr) && checkGitPlatforms(arr) && checkCloudBuildOSs(arr) && checkSelfHostedBuildOSs(arr) &&
+					checkUsers(arr) && checkCD(arr) && checkSelfHosted(arr) && checkConcurrentBuilds(arr) &&
+					checkSelfHostedRunners(arr) && checkCloudBuilds(arr, 'Linux', linuxMonthlyCloudMins) &&
 					checkCloudBuilds(arr, 'Docker', dockerMonthlyCloudMins) &&
 					checkCloudBuilds(arr, 'Windows', windowsMonthlyCloudMins) &&
 					checkCloudBuilds(arr, 'macOS', macOSMonthlyCloudMins) && checkSupport(arr));
@@ -206,18 +197,8 @@
 	}
 
 	//Source or filters changed, run filtering
-	$: (ciEntries, packagedChecked, cdChecked, selfHostedChecked, gitPlatformsSelected, users, concurrentBuilds, selfHostedRunners, linuxMonthlyCloudMins, dockerMonthlyCloudMins, windowsMonthlyCloudMins, macOSMonthlyCloudMins, brandsSelected, cloudOSsSelected, selfHostedOSsSelected, boolCloudBuild, boolSelfHostedBuild, supportSelected), filteredData();
+	$: (ciEntries, cdChecked, selfHostedChecked, gitPlatformsSelected, users, concurrentBuilds, selfHostedRunners, linuxMonthlyCloudMins, dockerMonthlyCloudMins, windowsMonthlyCloudMins, macOSMonthlyCloudMins, brandsSelected, cloudOSsSelected, selfHostedOSsSelected, boolCloudBuild, boolSelfHostedBuild, supportSelected), filteredData();
 
-	function filterFields() {
-		return allFields.filter((arr) => {
-			return arr.id === 'colID' || fieldsSelected.includes(arr.name);
-		});
-	}
-
-	function openRowModal(rowColID) {
-		modalColID = rowColID - 1;
-		rowModalOpen = !rowModalOpen;
-	}
 
 	function openSideMenu() {
 		sideMenuOpen = !sideMenuOpen;
@@ -260,20 +241,12 @@
 	<Button color='light' on:click={openSideMenu}>More filters</Button>
 </div>
 
-<Grid autoWidth={true} className={{ table: 'small w-auto' }}
-			columns={fieldsSelected.length === 0 ? allFields : filterFields()} data={filteredEntries}
-			on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)} pagination={{
-		enabled: true,
-		limit: currentPagination == null ? basePagination : currentPagination,
-		summary: true
-	}} resizable={true} search={true} sort={true}
-			style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '100px' } }} />
 
-<RowModal {allFields} bind:rowModalOpen fullRow={ciEntries[modalColID]} />
+<Grids allEntries={ciEntries} {allFields} {colIDIdx} {currentPagination} {fieldsSelected} {filteredEntries} />
+
 <HelpModal bind:helpModalOpen category='CIs' title='CI/CD Help' />
 
 <SideMenu bind:allBrands bind:allFieldNames bind:boolCloudBuild bind:boolSelfHostedBuild bind:brandsSelected
 					bind:cloudOSsSelected bind:concurrentBuilds bind:currentPagination bind:dockerMonthlyCloudMins
-					bind:fieldsSelected bind:linuxMonthlyCloudMins bind:macOSMonthlyCloudMins bind:packagedChecked
-					bind:selfHostedOSsSelected bind:selfHostedRunners bind:sideMenuOpen bind:supportSelected
-					bind:windowsMonthlyCloudMins />
+					bind:fieldsSelected bind:linuxMonthlyCloudMins bind:macOSMonthlyCloudMins bind:selfHostedOSsSelected
+					bind:selfHostedRunners bind:sideMenuOpen bind:supportSelected bind:windowsMonthlyCloudMins />

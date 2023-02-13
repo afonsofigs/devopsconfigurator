@@ -32,8 +32,8 @@
 			<li aria-current={$page.url.pathname === base + '/vcs' ? 'page' : 'false'}>
 				<a href={base + '/vcs'}>VC</a>
 			</li>
-			<li aria-current={$page.url.pathname === base + '/devops' ? 'page' : 'false'}>
-				<a href={base + '/devops'}>CI/CD</a>
+			<li aria-current={$page.url.pathname === base + '/cicd' ? 'page' : 'false'}>
+				<a href={base + '/cicd'}>CI/CD</a>
 			</li>
 			<li aria-current={$page.url.pathname === base + '/chats' ? 'page' : 'false'}>
 				<a href={base + '/chats'}>Chats</a>

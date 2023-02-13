@@ -8,13 +8,13 @@ export const boolJoins = ['Or', 'And'];
 
 export const supports = ['External companies', 'No', 'Yes', 'Yes with SLA'];
 
-export const ignoredFieldsDefault = ['colID', 'LicenseCost$PerMonth', 'NCloudConcurrentBuilds',
-                                     'PriceExtraParallelBuild', 'NSelf-hostedRunners', 'PriceExtraRunners',
-                                     'BuildsPerMonthLimit', 'IncludedCreditsPerMonth',
-                                     'CreditsPerSelfHostedBuildMinute', 'CreditsPerCloudBuildMinuteLinux',
-                                     'CreditsPerCloudBuildMinuteDocker', 'CreditsPerCloudBuildMinuteWindows',
-                                     'CreditsPerCloudBuildMinutemacOS', 'PricePerExtraCredit', 'IncludedUsers',
-                                     'MaxUsers', 'PriceExtraUser', 'IncludedCreditsPerExtraUser'];
+export const ignoredCICDFieldsDefault = ['colID', 'ExtrasIncluded', 'LicenseCost$PerMonth', 'NCloudConcurrentBuilds',
+                                         'PriceExtraParallelBuild', 'NSelf-hostedRunners', 'PriceExtraRunners',
+                                         'BuildsPerMonthLimit', 'IncludedCreditsPerMonth',
+                                         'CreditsPerSelfHostedBuildMinute', 'CreditsPerCloudBuildMinuteLinux',
+                                         'CreditsPerCloudBuildMinuteDocker', 'CreditsPerCloudBuildMinuteWindows',
+                                         'CreditsPerCloudBuildMinutemacOS', 'PricePerExtraCredit', 'IncludedUsers',
+                                         'MaxUsers', 'PriceExtraUser$', 'IncludedCreditsPerExtraUser', 'EasyFill(1-3)'];
 
 export const ignoredVCFieldsDefault = ['colID', 'LicenseCost$PerMonth', 'ExtrasIncluded', 'IncludedUsers', 'MaxUsers',
                                        'PriceExtraUser$', 'DiskSpaceExtraUserGB', 'NPrivateReposPerExtraUser',

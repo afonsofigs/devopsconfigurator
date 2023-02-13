@@ -15,7 +15,6 @@
 	export let allFieldNames = [];
 	export let fieldsSelected = [];
 	export let currentPagination = 10;
-	export let packagedChecked;
 	export let allBrands = [];
 	export let brandsSelected = [];
 	export let cloudOSsSelected = [];
@@ -27,7 +26,6 @@
 
 <Offcanvas header='More filters' isOpen={sideMenuOpen} placement='end' toggle={toggleEnd}>
 	<div class='d-flex flex-column justify-content-start gap-4'>
-		<Input bind:checked={packagedChecked} id='s1' label='Packaged' type='switch' />
 		<div>
 			<p class='mb-2'>Cloud OSs:</p>
 			<div class='d-flex flex-row justify-content-start gap-2 w-100'>
@@ -67,11 +65,6 @@
 
 		<NumberInput bind:value={macOSMonthlyCloudMins} label='macOS monthly cloud minutes:' placeholder='macOSMinutes'
 								 width='90px' />
-
-		<MultiSelect bind:options={allBrands} bind:selected={brandsSelected}
-								 placeholder='Brands: All ({allBrands.length})' />
-
-
 		<div>
 			<p class='mb-2'>Commercial support:</p>
 			<MultiSelect bind:selected={supportSelected} options={supports} placeholder='Support: All' />
@@ -79,6 +72,9 @@
 
 		<NumberInput bind:value={currentPagination} label='Results per page:' max='70' min='1' placeholder='pagination' />
 
+		<MultiSelect bind:options={allBrands} bind:selected={brandsSelected}
+								 placeholder='Brands: All ({allBrands.length})' />
+		
 		<MultiSelect bind:options={allFieldNames} bind:selected={fieldsSelected} placeholder='Visible fields: All' />
 	</div>
 </Offcanvas>

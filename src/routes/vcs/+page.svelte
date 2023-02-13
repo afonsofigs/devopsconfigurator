@@ -3,14 +3,13 @@
 	import '$lib/commons/styles.css';
 	import { ignoredVCFieldsDefault, selfHosted } from '$lib/commons/options.js';
 	import NumberInput from '$lib/commons/NumberInput.svelte';
-	import Grid from 'gridjs-svelte';
-	import RowModal from '$lib/commons/RowModal.svelte';
 	import vcsJson from '$lib/jsons/VCs.json';
 	import GreenSwitch from '$lib/commons/GreenSwitch.svelte';
 	import SideMenu from './SideMenu.svelte';
 	import { evaluate } from 'mathjs';
 	import { InfoCircle } from 'svelte-bootstrap-icons';
 	import HelpModal from '$lib/commons/HelpModal.svelte';
+	import Grids from '$lib/commons/Grids.svelte';
 
 
 	let colIDIdx = 0; //Index of the column "colID"
@@ -18,7 +17,6 @@
 	let filteredEntries = []; //[]
 	let allFields = []; //[]
 	let allFieldNames = []; //[]
-	let basePagination = 10; //10
 
 	let users = 1; //1
 	let privateRepos = 1; //1
@@ -36,7 +34,6 @@
 
 	let rowModalOpen = false; //false
 	let helpModalOpen = false; //false
-	let modalColID = 0; //0
 	let sideMenuOpen = false; //false
 
 	//Fetch json
@@ -203,16 +200,6 @@
 	//Source or filters changed, run filtering
 	$: (vcsEntries, selfHostedChecked, users, privateRepos, diskSpace, brandsSelected, supportSelected, issuesChecked, kanbanChecked, wikiChecked, packageRegistryChecked), filteredData();
 
-	function filterFields() {
-		return allFields.filter((arr) => {
-			return arr.id === 'colID' || fieldsSelected.includes(arr.name);
-		});
-	}
-
-	function openRowModal(rowColID) {
-		modalColID = rowColID - 1;
-		rowModalOpen = !rowModalOpen;
-	}
 
 	function openSideMenu() {
 		sideMenuOpen = !sideMenuOpen;
@@ -253,16 +240,8 @@
 	<Button color='light' on:click={openSideMenu}>More filters</Button>
 </div>
 
-<Grid autoWidth={true} className={{ table: 'small w-auto' }}
-			columns={fieldsSelected.length === 0 ? allFields : filterFields()} data={filteredEntries}
-			on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)} pagination={{
-		enabled: true,
-		limit: currentPagination == null ? basePagination : currentPagination,
-		summary: true
-	}} resizable={true} search={true} sort={true}
-			style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '100px' } }} />
+<Grids allEntries={vcsEntries} {allFields} {colIDIdx} {currentPagination} {fieldsSelected} {filteredEntries} />
 
-<RowModal {allFields} bind:rowModalOpen fullRow={vcsEntries[modalColID]} />
 <HelpModal bind:helpModalOpen category='VCs' title='Version Control Help' />
 
 <SideMenu bind:allBrands bind:allFieldNames bind:brandsSelected bind:currentPagination bind:fieldsSelected

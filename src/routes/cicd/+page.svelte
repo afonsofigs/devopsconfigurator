@@ -16,7 +16,6 @@
   let allFieldNames = []; //[]
   let ciEntries = []; //[]
   let filteredEntries = []; //[]
-  let colIDIdx = 0; //Index of the column "colID"
   let allFields = []; //[]
   let allBrands = []; //[]
 
@@ -56,7 +55,6 @@
     let auxAllBrands = [];
     Object.keys(ciColumns).forEach((key, index) => {
       if (key === "colID") {
-        colIDIdx = index;
         auxFields[index] = { id: key, name: ciColumns[key], hidden: true };
       }
       else {
@@ -260,7 +258,7 @@
 </div>
 
 
-<Grids allEntries={ciEntries} {allFields} {colIDIdx} {currentPagination} {fieldsSelected} {filteredEntries} />
+<Grids allEntries={ciEntries} {allFields} {currentPagination} {fieldsSelected} {filteredEntries} />
 
 <HelpModal bind:helpModalOpen category="CIs" title="CI/CD Help" />
 

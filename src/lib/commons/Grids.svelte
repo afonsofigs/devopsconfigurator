@@ -8,7 +8,6 @@
   export let fieldsSelected = [];
   export let allFields = [];
   export let filteredEntries = [];
-  export let colIDIdx = 1;
   export let currentPagination = 10;
   export let allEntries = [];
 
@@ -16,13 +15,19 @@
   let modalColID = 1;
   let basePagination = 10; //10
 
+  let colIDIdx = 0;
+
   function filterFields() {
-    return allFields.filter((arr) => {
+    const filteredFields = allFields.filter((arr) => {
       return arr.id === "colID" || fieldsSelected.includes(arr.name);
     });
+    colIDIdx = filteredFields.findIndex(item => item.id === "colID");
+    return filteredFields;
   }
 
-  function openRowModal(rowColID) {
+  function openRowModal(fullEvent) {
+    const rowColID = fullEvent.detail[1]._cells[colIDIdx].data;
+    console.log(fullEvent.detail);
     modalColID = rowColID - 1;
     rowModalOpen = !rowModalOpen;
   }
@@ -31,7 +36,7 @@
 
 <Grid autoWidth={true} className={{ table: 'small w-auto' }}
       columns={fieldsSelected.length === 0 ? allFields : filterFields()} data={filteredEntries}
-      on:rowClick={(e) => openRowModal(e.detail[1]._cells[colIDIdx].data)} pagination={{
+      on:rowClick={(e) => openRowModal(e)} pagination={{
 		enabled: true,
 		limit: currentPagination == null ? basePagination : currentPagination,
 		summary: true

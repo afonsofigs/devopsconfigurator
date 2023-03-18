@@ -13,7 +13,6 @@
   import Title from "$lib/commons/Title.svelte";
   import VisibleFields from "$lib/commons/VisibleFields.svelte";
 
-  let colIDIdx = 0; //Index of the column "colID"
   let chatsEntries = []; //[]
   let filteredEntries = []; //[]
   let allFields = []; //[]
@@ -48,7 +47,6 @@
 
     Object.keys(chatsColumns).forEach((key, index) => {
       if (key === "colID") {
-        colIDIdx = index;
         auxFields[index] = { id: key, name: chatsColumns[key], hidden: true };
       }
       else {
@@ -196,7 +194,7 @@
   <VisibleFields bind:allFieldNames bind:fieldsSelected />
 </div>
 
-<Grids allEntries={chatsEntries} {allFields} {colIDIdx} {currentPagination} {fieldsSelected} {filteredEntries} />
+<Grids allEntries={chatsEntries} {allFields} {currentPagination} {fieldsSelected} {filteredEntries} />
 
 <HelpModal bind:helpModalOpen category="Chats" title="Chats Help" />
 

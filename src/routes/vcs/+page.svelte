@@ -13,8 +13,6 @@
   import Title from "$lib/commons/Title.svelte";
   import VisibleFields from "$lib/commons/VisibleFields.svelte";
 
-
-  let colIDIdx = 0; //Index of the column "colID"
   let vcsEntries = []; //[]
   let filteredEntries = []; //[]
   let allFields = []; //[]
@@ -50,7 +48,6 @@
 
     Object.keys(vcsColumns).forEach((key, index) => {
       if (key === "colID") {
-        colIDIdx = index;
         auxFields[index] = { id: key, name: vcsColumns[key], hidden: true };
       }
       else {
@@ -240,7 +237,7 @@
   <VisibleFields bind:allFieldNames bind:fieldsSelected />
 </div>
 
-<Grids allEntries={vcsEntries} {allFields} {colIDIdx} {currentPagination} {fieldsSelected} {filteredEntries} />
+<Grids allEntries={vcsEntries} {allFields} {currentPagination} {fieldsSelected} {filteredEntries} />
 
 <HelpModal bind:helpModalOpen category="VCs" title="Version Control Help" />
 

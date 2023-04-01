@@ -15,8 +15,7 @@ Unlike other comparators, this one **calculates the expected prices on the fly**
 The parameters that are possible to choose are also particular to this configurator and have been chosen after gathering
 information on a **large number of services, cloud and self-hosted.**
 
-Currently, there are comparators for [**version control**](https://afonsofigs.github.io/devopsconfigurator/vcs), [**
-continuous integration and
+Currently, there are comparators for [**version control**](https://afonsofigs.github.io/devopsconfigurator/vcs), [**continuous integration and
 deployment**](https://afonsofigs.github.io/devopsconfigurator/cicd) and [**team
 chat**](https://afonsofigs.github.io/devopsconfigurator/vcs) platforms.
 
@@ -32,7 +31,7 @@ this [github repository.](https://github.com/afonsofigs/devopsconfigurator)
 
 ## Corrections
 
-If you would like to suggest a change please do it via pull request.
+If you would like to suggest a change, please do it via pull request or the issues tab.
 
 ## Developing
 

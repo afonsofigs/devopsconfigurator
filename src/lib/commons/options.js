@@ -1,25 +1,56 @@
-export const gitPlatforms = ["All", "GitHub", "Bitbucket", "GitLab", "Assembla"];
+export const gitPlatforms = ['All', 'GitHub', 'Bitbucket', 'GitLab', 'Assembla'];
 
-export const selfHosted = ["No", "Both", "Yes"];
+export const selfHosted = ['No', 'Both', 'Yes'];
 
-export const OSs = ["Linux", "Docker", "Windows", "macOS"];
+export const OSs = ['Linux', 'Docker', 'Windows', 'macOS'];
 
-export const boolJoins = ["Or", "And"];
+export const boolJoins = ['Or', 'And'];
 
-export const supports = ["External companies", "No", "Yes", "Yes with SLA"];
+export const supports = ['External companies', 'No', 'Yes', 'Yes with SLA'];
 
-export const ignoredCICDFieldsDefault = ["colID", "ExtrasIncluded", "LicenseCost$PerMonth", "NCloudConcurrentBuilds",
-                                         "PriceExtraParallelBuild", "NSelf-hostedRunners", "PriceExtraRunners",
-                                         "BuildsPerMonthLimit", "IncludedCreditsPerMonth",
-                                         "CreditsPerSelfHostedBuildMinute", "CreditsPerCloudBuildMinuteLinux",
-                                         "CreditsPerCloudBuildMinuteDocker", "CreditsPerCloudBuildMinuteWindows",
-                                         "CreditsPerCloudBuildMinutemacOS", "PricePerExtraCredit", "IncludedUsers",
-                                         "MaxUsers", "PriceExtraUser$", "IncludedCreditsPerExtraUser", "EasyFill(1-3)"];
+export const CICDFieldsDefault = [
+	'Brand',
+	'Service',
+	'CalculatedCost',
+	'mcdm_Rank',
+	'Self-hosted',
+	'CD',
+	'GitPlatformsCompatible',
+	'ExternalIntegrations',
+	'CloudBuildOSs',
+	'Self-hostedRunnersBuildOSs',
+	'CachingPipelineAndDependencies',
+	'ScheduledPipelines',
+	'StatisticsAndMetrics',
+	'CommercialSupport'
+];
 
-export const ignoredVCFieldsDefault = ["colID", "LicenseCost$PerMonth", "ExtrasIncluded", "IncludedUsers", "MaxUsers",
-                                       "PriceExtraUser$", "DiskSpaceExtraUserGB", "NPrivateReposPerExtraUser",
-                                       "PriceExtraGBDiskSpace", "DiskSpaceGB", "NPrivateReposIncluded",
-                                       "NPrivateReposFormula", "DiskSpaceGBFormula"];
-export const ignoredChatFieldsDefault = ["colID", "LicenseCost$PerMonth", "ExtrasIncluded", "IncludedUsers", "MaxUsers",
-                                         "PriceExtraUser$", "FreeTemporaryGuestsFormula", "ChatFilesFormulaGB"];
-                        
+export const VCFieldsDefault = [
+	'Brand',
+	'Service',
+	'CalculatedCost',
+	'mcdm_Rank',
+	'Self-hosted',
+	'Issues',
+	'Kanban',
+	'Wiki',
+	'PackageRegistry',
+	'FinalNRepos',
+	'FinalDiskSpace',
+	'CommercialSupport'
+];
+
+export const ChatFieldsDefault = [
+	'Brand',
+	'Service',
+	'CalculatedCost',
+	'mcdm_Rank',
+	'ChatFilesGBFinal',
+	'Self-hosted',
+	'MsgHistory',
+	'PeoplePerCall',
+	'CallDurationMins',
+	'FreeTemporaryGuestsFinal',
+	'Integrations',
+	'CommercialSupport'
+];

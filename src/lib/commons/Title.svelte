@@ -3,5 +3,5 @@
 </script>
 
 <svelte:head>
-	<title>{(prefix.length) ? (prefix + " - ") : ""}DevOps Comparator</title>
+	<title>{prefix.length ? prefix + ' - ' : ''}DevOps Comparator</title>
 </svelte:head>

@@ -8,7 +8,7 @@
 	export let placeholder = 'builds';
 	export let width = '45px';
 	export let classNames = '';
-  export let step = 1;
+	export let step = 1;
 </script>
 
 <div class="d-flex flex-row gap-2 mb-0 align-content-center">
@@ -18,7 +18,7 @@
 		class={'p-1 my-auto ' + classNames}
 		{max}
 		{min}
-    {step}
+		{step}
 		name={placeholder}
 		{placeholder}
 		style="font-size: 0.9rem; width: {width}; height: 28px"

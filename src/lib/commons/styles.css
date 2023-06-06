@@ -1,25 +1,23 @@
-
 .form-check-input {
-    background-color: rgba(var(--bs-light-rgb)) !important;
+	background-color: rgba(var(--bs-light-rgb)) !important;
 }
 
 .form-check-input:checked {
-    background-color: #92ccd7 !important;
-    border-color: #9a9a9a !important;
+	background-color: #92ccd7 !important;
+	border-color: #9a9a9a !important;
 }
 
-
 div.gridjs-head > div > input {
-    background-color: rgba(var(--bs-light-rgb)) !important;
+	background-color: rgba(var(--bs-light-rgb)) !important;
 }
 
 .offcanvas {
-    /*width: 40% !important;*/
-    max-width: 600px !important;
+	/*width: 40% !important;*/
+	max-width: 600px !important;
 }
 
 @media only screen and (max-width: 600px) {
-    .offcanvas {
-        width: 100% !important;
-    }
+	.offcanvas {
+		width: 100% !important;
+	}
 }

@@ -1,46 +1,56 @@
-<style>
-  @import 'https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css';
-</style>
 <script>
-  import Grid from "gridjs-svelte";
-  import RowModal from "$lib/commons/RowModal.svelte";
+	// @ts-nocheck
 
-  export let fieldsSelected = [];
-  export let allFields = [];
-  export let filteredEntries = [];
-  export let currentPagination = 10;
-  export let allEntries = [];
+	import Grid from 'gridjs-svelte';
+	import RowModal from '$lib/commons/RowModal.svelte';
 
-  let rowModalOpen = false;
-  let modalColID = 1;
-  let basePagination = 10; //10
+	export let fieldsSelected = [];
+	export let allFields = [];
+	export let filteredEntries = [];
+	export let currentPagination = 10;
+	export let allEntries = [];
 
-  let colIDIdx = 0;
+	let rowModalOpen = false;
+	let modalColID = 1;
+	let basePagination = 10; //10
 
-  function filterFields() {
-    const filteredFields = allFields.filter((arr) => {
-      return arr.id === "colID" || fieldsSelected.includes(arr.name);
-    });
-    colIDIdx = filteredFields.findIndex(item => item.id === "colID");
-    return filteredFields;
-  }
+	let colIDIdx = 0;
 
-  function openRowModal(fullEvent) {
-    const rowColID = fullEvent.detail[1]._cells[colIDIdx].data;
-    console.log(fullEvent.detail);
-    modalColID = rowColID - 1;
-    rowModalOpen = !rowModalOpen;
-  }
+	function filterFields() {
+		const filteredFields = allFields.filter((arr) => {
+			return arr.id === 'colID' || fieldsSelected.includes(arr.name);
+		});
+		colIDIdx = filteredFields.findIndex((item) => item.id === 'colID');
+		return filteredFields;
+	}
+
+	function openRowModal(fullEvent) {
+		const rowColID = fullEvent.detail[1]._cells[colIDIdx].data;
+		console.log(fullEvent.detail);
+		modalColID = rowColID - 1;
+		rowModalOpen = !rowModalOpen;
+	}
 </script>
 
-
-<Grid autoWidth={true} className={{ table: 'small w-auto' }}
-      columns={fieldsSelected.length === 0 ? allFields : filterFields()} data={filteredEntries}
-      on:rowClick={(e) => openRowModal(e)} pagination={{
+<Grid
+	autoWidth={true}
+	className={{ table: 'small w-auto' }}
+	columns={fieldsSelected.length === 0 ? allFields : filterFields()}
+	data={filteredEntries}
+	on:rowClick={(e) => openRowModal(e)}
+	pagination={{
 		enabled: true,
 		limit: currentPagination == null ? basePagination : currentPagination,
 		summary: true
-	}} resizable={true} search={true} sort={true}
-      style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '130px' } }} />
+	}}
+	resizable={false}
+	search={true}
+	sort={true}
+	style={{ table: { 'white-space': 'nowrap' }, td: { 'min-width': '130px' } }}
+/>
 
 <RowModal {allFields} bind:rowModalOpen fullRow={allEntries[modalColID]} />
+
+<style>
+	@import 'https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css';
+</style>
